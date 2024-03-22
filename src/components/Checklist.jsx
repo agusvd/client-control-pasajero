@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { FiArrowLeft, FiMenu } from "react-icons/fi";
+import { FiArrowLeft, FiLogOut, FiMenu } from "react-icons/fi";
 import { Link } from 'react-router-dom';
+import NavMobile from './NavMobile';
 
 const Checklist = () => {
     const trabajadores = [
@@ -21,13 +22,85 @@ const Checklist = () => {
             rut: '98765432-1',
             tipoEmpresa: 'EST',
             tipoVehiculo: 'Taxi'
+        },
+        {
+            id: 3,
+            nombre: 'Juan',
+            apellido: 'Random',
+            direccion: 'calle falsa 213',
+            rut: '12345678-9',
+            tipoEmpresa: 'TP',
+            tipoVehiculo: 'VAN'
+        },
+        {
+            id: 4,
+            nombre: 'Pedro',
+            apellido: 'Random',
+            direccion: 'calle falsa 321',
+            rut: '98765432-1',
+            tipoEmpresa: 'EST',
+            tipoVehiculo: 'VAN'
+        },
+        {
+            id: 5,
+            nombre: 'Pablo',
+            apellido: 'Random',
+            direccion: 'calle falsa 231',
+            rut: '12345678-9',
+            tipoEmpresa: 'TP',
+            tipoVehiculo: 'VAN'
+        },
+        {
+            id: 6,
+            nombre: 'Paco',
+            apellido: 'Random',
+            direccion: 'calle falsa 132',
+            rut: '98765432-1',
+            tipoEmpresa: 'EST',
+            tipoVehiculo: 'VAN'
+        },
+        {
+            id: 7,
+            nombre: 'Pato',
+            apellido: 'Random',
+            direccion: 'calle falsa 213',
+            rut: '12345678-9',
+            tipoEmpresa: 'TP',
+            tipoVehiculo: 'VAN'
+        },
+        {
+            id: 8,
+            nombre: 'Pepito',
+            apellido: 'Random',
+            direccion: 'calle falsa 312',
+            rut: '98765432-1',
+            tipoEmpresa: 'EST',
+            tipoVehiculo: 'VAN'
+        },
+        {
+            id: 9,
+            nombre: 'Panchito',
+            apellido: 'Random',
+            direccion: 'calle falsa 123',
+            rut: '12345678-9',
+            tipoEmpresa: 'TP',
+            tipoVehiculo: 'VAN'
+        },
+        {
+            id: 10,
+            nombre: 'Panchito',
+            apellido: 'Random',
+            direccion: 'calle falsa 123',
+            rut: '12345678-9',
+            tipoEmpresa: 'TP',
+            tipoVehiculo: 'VAN'
         }
     ];
 
     const [checklists, setChecklists] = useState([
         {
             id: 1,
-            fecha: '18-03-2024',
+            fecha: '22-03-2024',
             trabajadorId: 1,
             estadoCasa: true,
             estadoPlanta: false,
@@ -35,8 +108,72 @@ const Checklist = () => {
         },
         {
             id: 2,
-            fecha: '18-03-2024',
+            fecha: '22-03-2024',
             trabajadorId: 2,
+            estadoCasa: true,
+            estadoPlanta: false,
+            nuevoEstado: '',
+        },
+        {
+            id: 3,
+            fecha: '22-03-2024',
+            trabajadorId: 3,
+            estadoCasa: true,
+            estadoPlanta: false,
+            nuevoEstado: '',
+        },
+        {
+            id: 4,
+            fecha: '22-03-2024',
+            trabajadorId: 4,
+            estadoCasa: true,
+            estadoPlanta: false,
+            nuevoEstado: '',
+        },
+        {
+            id: 5,
+            fecha: '22-03-2024',
+            trabajadorId: 5,
+            estadoCasa: true,
+            estadoPlanta: false,
+            nuevoEstado: '',
+        },
+        {
+            id: 6,
+            fecha: '22-03-2024',
+            trabajadorId: 6,
+            estadoCasa: true,
+            estadoPlanta: false,
+            nuevoEstado: '',
+        },
+        {
+            id: 7,
+            fecha: '22-03-2024',
+            trabajadorId: 7,
+            estadoCasa: true,
+            estadoPlanta: false,
+            nuevoEstado: '',
+        },
+        {
+            id: 8,
+            fecha: '22-03-2024',
+            trabajadorId: 8,
+            estadoCasa: true,
+            estadoPlanta: false,
+            nuevoEstado: '',
+        },
+        {
+            id: 9,
+            fecha: '22-03-2024',
+            trabajadorId: 9,
+            estadoCasa: true,
+            estadoPlanta: false,
+            nuevoEstado: '',
+        },
+        {
+            id: 10,
+            fecha: '22-03-2024',
+            trabajadorId: 10,
             estadoCasa: true,
             estadoPlanta: false,
             nuevoEstado: '',
@@ -63,48 +200,22 @@ const Checklist = () => {
         );
     };
 
+    const [navMobile, setNavMobile] = useState(false);
+    const toggleNavMobile = () => {
+        console.log('click')
+        setNavMobile(!navMobile);
+    }
     return (
-        <div className='h-screen fondo-main font-primary backdrop:blur-sm'>
-            <div className='bg-white/30 h-screen'>
-                <nav className='w-full h-16'>
-                    <div className='flex justify-start gap-4 items-center p-2 h-full'>
-                        <button>
-                            <FiMenu size={30} className='text-white' />
-                        </button>
-                        <h1 className='text-3xl text-white'></h1>
-                    </div>
+        <div className='h-screen fondo-main font-primary z-10'>
+            <div className='bg-white/20 h-full backdrop-blur-md z-20'>
+                <nav className='flex justify-center items-center p-4 border-b-2'>
+                    <h1 className='text-white text-3xl font-light'>
+                        Lista IDA
+                    </h1>
                 </nav>
-                <h2 className='text-center text-3xl font-semibold first-letter:uppercase text-white'>{fechaFormateada}</h2>
-                {/* Cards de los trabajadores */}
-                <div className='flex flex-col gap-4 items-center'>
-                    {checklists.map(checklist => (
-                        <div key={checklist.id} className='w-11/12 h-[300px] rounded-lg shadow-xl bg-white'>
-                            <div className='flex justify-between items-center text-2xl first-letter:uppercase w-full p-2'>
-                                {trabajadores.find(trabajador => trabajador.id === checklist.trabajadorId).nombre} {trabajadores.find(trabajador => trabajador.id === checklist.trabajadorId).apellido}
-                            </div>
-                            <div className='flex flex-col pt-2 p-1'>
-                                <div className='flex justify-between p-1 items-center'>
-                                    <p className='text-2xl  first-letter:uppercase'>
-                                        {trabajadores.find(trabajador => trabajador.id === checklist.trabajadorId).direccion}
-                                    </p>
-                                    <button className='bg-black text-white rounded-lg p-1.5 text-xl'>
-                                        Ver en mapa
-                                    </button>
-                                </div>
-                                <div className='flex flex-col gap-2'>
-                                    {/* Estado de la planta */}
-                                    <button onClick={() => cambiarEstadoPlanta(checklist.id)} className={`text-xl p-2 rounded-lg w-full duration-300 ease-in-out transition-all ${checklist.estadoPlanta ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
-                                        {checklist.estadoPlanta ? 'En planta' : 'No en planta'}
-                                    </button>
-                                    <button className='w-full bg-black text-white text-2xl rounded-lg p-2'>
-                                        Guardar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                <NavMobile />
             </div>
+
         </div>
     )
 };
