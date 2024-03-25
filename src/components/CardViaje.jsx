@@ -24,7 +24,7 @@ const CardViaje = ({ trabajador }) => {
             <div className='flex w-full justify-between'>
                 <div className='flex justify-start gap-2 items-center'>
                     <button type='button' onClick={toggleModal}
-                        className='text-black rounded-md font-bold'>
+                        className='text-[#37B9D8] rounded-md font-bold'>
                         <MdInfo size={40} />
                     </button>
                     <h1 className='text-md font-bold text-black'>

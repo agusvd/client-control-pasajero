@@ -48,15 +48,15 @@ const Checklist = () => {
     return (
         <div className='bg-gray-100 h-full'>
             <div className='flex flex-col justify-center items-center pt-8'>
-                <div className='bg-white flex gap-2 p-1.5 rounded-lg shadow'>
+                <div className='bg-white flex gap-2 p-1.5 rounded-lg shadow w-full justify-around'>
                     <button onClick={() => setViaje(1)}
-                        className={`text-2xl p-2 rounded-md transition-all ease-in-out duration-300 
-                        ${viaje === 1 ? 'bg-black text-white' : 'text-black'}`}>
+                        className={`text-xl p-2 rounded-md transition-all ease-in-out duration-300 text-center 
+                        ${viaje === 1 ? 'bg-[#37B9D8] text-white' : 'text-black'}`}>
                         Traslado planta
                     </button>
                     <button onClick={() => setViaje(2)}
-                        className={` text-2xl p-2 rounded-md transition-all ease-in-out duration-300 
-                        ${viaje === 2 ? 'bg-black text-white' : 'text-black'}`}>
+                        className={` text-xl p-2 rounded-md transition-all ease-in-out duration-300 text-center
+                        ${viaje === 2 ? 'bg-[#37B9D8] text-white' : 'text-black'}`}>
                         Traslado hogar
                     </button>
                 </div>
@@ -69,7 +69,7 @@ const Checklist = () => {
                                 trabajador={trabajador}
                                 onInfoClick={() => handleInfoClick(trabajador)} />
                         ))}
-                        <button className='bg-green-500 p-2 rounded-md text-white font-bold w-full text-center transition-all duration-500 ease-in-out'>
+                        <button className='bg-[#37B9D8] p-2 rounded-md text-white font-bold w-full text-center transition-all duration-500 ease-in-out'>
                             Enviar
                         </button>
                     </form>
