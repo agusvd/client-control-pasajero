@@ -1,35 +1,41 @@
-import React, {useState} from 'react'
-import { FiLogOut, FiMenu } from "react-icons/fi";
-
+import React, { useState } from 'react'
+import Logo from '../assets/logo_color.svg'
+import { HiBars3 } from "react-icons/hi2";
+import { Link } from 'react-router-dom';
 
 const NavMobile = () => {
 
-    const [opciones, setOpciones] = useState(false)
-
-    const mostrarOpciones = () => {
-        setOpciones(!opciones)
-    }
-
     return (
-        <div className='w-full h-[50px] bg-transparent absolute bottom-0 border-t-2 font-primary'>
-            <div className='flex justify-around items-center h-full bg-[#202020]'>
-                <button>
-                    <FiLogOut size={30} className='text-white' />
+        <div className='bg-white w-full h-16'>
+            <div className='flex justify-between items-center h-full px-4'>
+                <img src={Logo} alt='logo' className='h-full p-1' />
+                <button onClick={() => document.getElementById('menu').showModal()}
+                    className='text-black' >
+                    <HiBars3 size={40} />
                 </button>
-                <button>
-                    <FiMenu onClick={mostrarOpciones} size={30} className='text-white' />
-                </button>
+                <dialog id="menu" className="modal">
+                    <div className="modal-box bg-white font-primary">
+                        <form method="dialog">
+                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-black ">✕</button>
+                        </form>
+                        <div className='flex justify-center items-center pb-5'>
+                            <h3 className="font-bold text-3xl text-black">Menu</h3>
+                        </div>
+                        <div className='flex flex-col justify-center items-center gap-2'>
+                            <Link to="/inicio" className='text-black text-2xl'>
+                                Lista
+                            </Link>
+                            <Link className='text-black text-2xl'>
+                                Trabajadores
+                            </Link>
+                            <button className='text-black text-2xl'>
+                                Cerrar sesion
+                            </button>
+                        </div>
+                    </div>
+                </dialog>
             </div>
-            {opciones && (
-                <div className='w-full h-[100px] bottom-12 bg-[#202020] fixed'>
-                    <button className='text-white w-full h-1/2'>
-                        Lista IDA
-                    </button>
-                    <button className='text-white w-full h-1/2'>
-                        Lista VUELTA
-                    </button>
-                </div>
-            )}
+
         </div>
     )
 }

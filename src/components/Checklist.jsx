@@ -1,223 +1,110 @@
-import React, { useState } from 'react';
-import { FiArrowLeft, FiLogOut, FiMenu } from "react-icons/fi";
-import { Link } from 'react-router-dom';
-import NavMobile from './NavMobile';
+import React, { useState } from 'react'
+import CardViaje from './CardViaje'
 
 const Checklist = () => {
+
+    const [viaje, setViaje] = useState(1)
+    const [selectedWorker, setSelectedWorker] = useState(null);
+
     const trabajadores = [
         {
-            id: 1,
-            nombre: 'Agustin',
-            apellido: 'Random',
-            direccion: 'calle falsa 123',
-            rut: '12345678-9',
-            tipoEmpresa: 'TP',
-            tipoVehiculo: 'VAN'
+            id_trabajador: 1,
+            nombre_completo: 'Juan Perez',
+            rut: '12.345.678-9',
+            direccion: 'Calle 1',
+            telefono: '+56912345678',
+            empresa: 'TP',
+            transporte: 'VAN',
         },
         {
-            id: 2,
-            nombre: 'Felipe',
-            apellido: 'Random',
-            direccion: 'calle falsa 312',
-            rut: '98765432-1',
-            tipoEmpresa: 'EST',
-            tipoVehiculo: 'Taxi'
+            id_trabajador: 2,
+            nombre_completo: 'Vicente Vivar',
+            rut: '12.345.678-9',
+            direccion: 'Calle 2',
+            telefono: '+56912345678',
+            empresa: 'EST',
+            transporte: 'VAN',
         },
         {
-            id: 3,
-            nombre: 'Juan',
-            apellido: 'Random',
-            direccion: 'calle falsa 213',
-            rut: '12345678-9',
-            tipoEmpresa: 'TP',
-            tipoVehiculo: 'VAN'
+            id_trabajador: 3,
+            nombre_completo: 'Agustin Villarroel',
+            rut: '12.345.678-9',
+            direccion: 'Calle 3',
+            telefono: '+56912345678',
+            empresa: 'TP',
+            transporte: 'VAN',
         },
         {
-            id: 4,
-            nombre: 'Pedro',
-            apellido: 'Random',
-            direccion: 'calle falsa 321',
-            rut: '98765432-1',
-            tipoEmpresa: 'EST',
-            tipoVehiculo: 'VAN'
-        },
-        {
-            id: 5,
-            nombre: 'Pablo',
-            apellido: 'Random',
-            direccion: 'calle falsa 231',
-            rut: '12345678-9',
-            tipoEmpresa: 'TP',
-            tipoVehiculo: 'VAN'
-        },
-        {
-            id: 6,
-            nombre: 'Paco',
-            apellido: 'Random',
-            direccion: 'calle falsa 132',
-            rut: '98765432-1',
-            tipoEmpresa: 'EST',
-            tipoVehiculo: 'VAN'
-        },
-        {
-            id: 7,
-            nombre: 'Pato',
-            apellido: 'Random',
-            direccion: 'calle falsa 213',
-            rut: '12345678-9',
-            tipoEmpresa: 'TP',
-            tipoVehiculo: 'VAN'
-        },
-        {
-            id: 8,
-            nombre: 'Pepito',
-            apellido: 'Random',
-            direccion: 'calle falsa 312',
-            rut: '98765432-1',
-            tipoEmpresa: 'EST',
-            tipoVehiculo: 'VAN'
-        },
-        {
-            id: 9,
-            nombre: 'Panchito',
-            apellido: 'Random',
-            direccion: 'calle falsa 123',
-            rut: '12345678-9',
-            tipoEmpresa: 'TP',
-            tipoVehiculo: 'VAN'
-        },
-        {
-            id: 10,
-            nombre: 'Panchito',
-            apellido: 'Random',
-            direccion: 'calle falsa 123',
-            rut: '12345678-9',
-            tipoEmpresa: 'TP',
-            tipoVehiculo: 'VAN'
+            id_trabajador: 4,
+            nombre_completo: 'Alfonso Villarroel',
+            rut: '12.345.678-9',
+            direccion: 'Calle 4',
+            telefono: '+56912345678',
+            empresa: 'EST',
+            transporte: 'VAN',
         }
-    ];
+    ]
 
-    const [checklists, setChecklists] = useState([
-        {
-            id: 1,
-            fecha: '22-03-2024',
-            trabajadorId: 1,
-            estadoCasa: true,
-            estadoPlanta: false,
-            nuevoEstado: '',
-        },
-        {
-            id: 2,
-            fecha: '22-03-2024',
-            trabajadorId: 2,
-            estadoCasa: true,
-            estadoPlanta: false,
-            nuevoEstado: '',
-        },
-        {
-            id: 3,
-            fecha: '22-03-2024',
-            trabajadorId: 3,
-            estadoCasa: true,
-            estadoPlanta: false,
-            nuevoEstado: '',
-        },
-        {
-            id: 4,
-            fecha: '22-03-2024',
-            trabajadorId: 4,
-            estadoCasa: true,
-            estadoPlanta: false,
-            nuevoEstado: '',
-        },
-        {
-            id: 5,
-            fecha: '22-03-2024',
-            trabajadorId: 5,
-            estadoCasa: true,
-            estadoPlanta: false,
-            nuevoEstado: '',
-        },
-        {
-            id: 6,
-            fecha: '22-03-2024',
-            trabajadorId: 6,
-            estadoCasa: true,
-            estadoPlanta: false,
-            nuevoEstado: '',
-        },
-        {
-            id: 7,
-            fecha: '22-03-2024',
-            trabajadorId: 7,
-            estadoCasa: true,
-            estadoPlanta: false,
-            nuevoEstado: '',
-        },
-        {
-            id: 8,
-            fecha: '22-03-2024',
-            trabajadorId: 8,
-            estadoCasa: true,
-            estadoPlanta: false,
-            nuevoEstado: '',
-        },
-        {
-            id: 9,
-            fecha: '22-03-2024',
-            trabajadorId: 9,
-            estadoCasa: true,
-            estadoPlanta: false,
-            nuevoEstado: '',
-        },
-        {
-            id: 10,
-            fecha: '22-03-2024',
-            trabajadorId: 10,
-            estadoCasa: true,
-            estadoPlanta: false,
-            nuevoEstado: '',
-        }
-    ]);
-
-    const fechaActual = new Date();
-    const opcionesDeFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const fechaFormateada = fechaActual.toLocaleDateString('es-ES', opcionesDeFecha);
-
-    const cambiarEstadoCasa = (checklistId) => {
-        setChecklists(prevChecklists =>
-            prevChecklists.map(checklist =>
-                checklist.id === checklistId ? { ...checklist, estadoCasa: !checklist.estadoCasa } : checklist
-            )
-        );
+    const handleInfoClick = (trabajador) => {
+        setSelectedWorker(trabajador);
+        document.getElementById('modal_info').showModal();
     };
 
-    const cambiarEstadoPlanta = (checklistId) => {
-        setChecklists(prevChecklists =>
-            prevChecklists.map(checklist =>
-                checklist.id === checklistId ? { ...checklist, estadoPlanta: !checklist.estadoPlanta } : checklist
-            )
-        );
-    };
-
-    const [navMobile, setNavMobile] = useState(false);
-    const toggleNavMobile = () => {
-        console.log('click')
-        setNavMobile(!navMobile);
-    }
     return (
-        <div className='h-screen fondo-main font-primary z-10'>
-            <div className='bg-white/20 h-full backdrop-blur-md z-20'>
-                <nav className='flex justify-center items-center p-4 border-b-2'>
-                    <h1 className='text-white text-3xl font-light'>
-                        Lista IDA
-                    </h1>
-                </nav>
-                <NavMobile />
-            </div>
+        <div className='bg-gray-100 h-full'>
+            <div className='flex flex-col justify-center items-center pt-8'>
+                <div className='bg-white flex gap-2 p-1.5 rounded-lg shadow'>
+                    <button onClick={() => setViaje(1)}
+                        className={`text-2xl p-2 rounded-md transition-all ease-in-out duration-300 
+                        ${viaje === 1 ? 'bg-black text-white' : 'text-black'}`}>
+                        Traslado planta
+                    </button>
+                    <button onClick={() => setViaje(2)}
+                        className={` text-2xl p-2 rounded-md transition-all ease-in-out duration-300 
+                        ${viaje === 2 ? 'bg-black text-white' : 'text-black'}`}>
+                        Traslado hogar
+                    </button>
+                </div>
+                {viaje === 1 && (
+                    <form
+                        className='transition-all ease-in-out duration-300 grid grid-cols-1 gap-4 w-full pt-8'>
+                        {trabajadores.map(trabajador => (
+                            <CardViaje
+                                key={trabajador.id_trabajador}
+                                trabajador={trabajador}
+                                onInfoClick={() => handleInfoClick(trabajador)} />
+                        ))}
+                    </form>
+                )}
+                {viaje === 2 && (
+                    <div
+                        className='transition-all ease-in-out duration-300 pt-2 grid grid-cols-1 gap-3 w-full'>
 
+                    </div>
+                )}
+            </div>
+            {selectedWorker && (
+                <dialog id="modal_info" className="modal">
+                    <div className="modal-box bg-white font-primary">
+                        <form method="dialog">
+                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-black " onClick={() => setSelectedWorker(null)}>✕</button>
+                        </form>
+                        <div className='flex justify-center items-center pb-5'>
+                            <h3 className="font-bold text-3xl text-black">Informacion</h3>
+                        </div>
+                        <div className='flex flex-col justify-center items-center gap-2'>
+                            <p className='text-black'>
+                                {selectedWorker.telefono}
+                            </p>
+                            <p className='text-black'>
+                                {selectedWorker.direccion}
+                            </p>
+                        </div>
+                    </div>
+                </dialog>
+            )}
         </div>
-    )
+    );
 };
 
 export default Checklist;
