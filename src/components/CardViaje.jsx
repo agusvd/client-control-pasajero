@@ -20,7 +20,8 @@ const CardViaje = ({ trabajador }) => {
     };
 
     return (
-            <div className='p-1 flex justify-between items-center bg-white shadow-md rounded-md h-[80px]'>
+        <div className='p-1 flex flex-col justify-around bg-white shadow-md rounded-md h-[100px]'>
+            <div className='flex w-full justify-between'>
                 <div className='flex justify-start gap-2 items-center'>
                     <button type='button' onClick={toggleModal}
                         className='text-black rounded-md font-bold'>
@@ -29,9 +30,11 @@ const CardViaje = ({ trabajador }) => {
                     <h1 className='text-md font-bold text-black'>
                         {trabajador.nombre_completo}
                     </h1>
-
-
                 </div>
+                
+            </div>
+            <div className='flex w-full justify-between '>
+                <input type="text" placeholder="Nueva ubicacion" className="w-1/2 p-2 rounded-md border border-gray-300 bg-gray-100 text-black" />
                 <div className='flex items-center gap-2 pr-4'>
                     {
                         checked
@@ -44,12 +47,10 @@ const CardViaje = ({ trabajador }) => {
                                 hogar
                             </div>
                     }
-                    <input
-                        type="checkbox"
-                        onClick={handleCheck}
-                        className="checkbox checkbox-lg bg-white checked:border-green-500 [--chkbg:theme(colors.green.500)] [--chkfg:white]" />
+                    <input type="checkbox" onClick={handleCheck} className="checkbox checkbox-lg bg-white checked:border-green-500 [--chkbg:theme(colors.green.500)] [--chkfg:white]" />
                 </div>
-                {modalOpen && (
+            </div>
+            {modalOpen && (
                 <div className="absolute top-0 left-0 flex items-center justify-center z-50 h-screen bg-black/50 w-full">
                     <div className="bg-white p-4 rounded-lg shadow-xl w-3/4">
                         <div className="flex justify-between mb-4">
@@ -68,11 +69,10 @@ const CardViaje = ({ trabajador }) => {
                                 Abrir en Google Maps
                             </button>
                         </div>
-
                     </div>
                 </div>
             )}
-            </div>
+        </div>
     );
 };
 
