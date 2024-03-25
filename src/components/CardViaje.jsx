@@ -20,7 +20,6 @@ const CardViaje = ({ trabajador }) => {
     };
 
     return (
-        <div className='px-2'>
             <div className='p-1 flex justify-between items-center bg-white shadow-md rounded-md h-[80px]'>
                 <div className='flex justify-start gap-2 items-center'>
                     <button type='button' onClick={toggleModal}
@@ -50,8 +49,7 @@ const CardViaje = ({ trabajador }) => {
                         onClick={handleCheck}
                         className="checkbox checkbox-lg bg-white checked:border-green-500 [--chkbg:theme(colors.green.500)] [--chkfg:white]" />
                 </div>
-            </div>
-            {modalOpen && (
+                {modalOpen && (
                 <div className="absolute top-0 left-0 flex items-center justify-center z-50 h-screen bg-black/50 w-full">
                     <div className="bg-white p-4 rounded-lg shadow-xl w-3/4">
                         <div className="flex justify-between mb-4">
@@ -74,7 +72,7 @@ const CardViaje = ({ trabajador }) => {
                     </div>
                 </div>
             )}
-        </div>
+            </div>
     );
 };
 

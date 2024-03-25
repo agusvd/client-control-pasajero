@@ -62,13 +62,16 @@ const Checklist = () => {
                 </div>
                 {viaje === 1 && (
                     <form
-                        className='transition-all ease-in-out duration-300 grid grid-cols-1 gap-4 w-full pt-8'>
+                        className='transition-all ease-in-out duration-300 grid grid-cols-1 gap-4 w-full pt-8 p-2'>
                         {trabajadores.map(trabajador => (
                             <CardViaje
                                 key={trabajador.id_trabajador}
                                 trabajador={trabajador}
                                 onInfoClick={() => handleInfoClick(trabajador)} />
                         ))}
+                        <button className='bg-green-500 p-2 rounded-md text-white font-bold w-full text-center transition-all duration-500 ease-in-out'>
+                            Enviar
+                        </button>
                     </form>
                 )}
                 {viaje === 2 && (
