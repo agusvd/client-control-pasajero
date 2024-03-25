@@ -4,14 +4,13 @@ import CardViaje from './CardViaje'
 const Checklist = () => {
 
     const [viaje, setViaje] = useState(1)
-    const [selectedWorker, setSelectedWorker] = useState(null);
 
     const trabajadores = [
         {
             id_trabajador: 1,
             nombre_completo: 'Juan Perez',
             rut: '12.345.678-9',
-            direccion: 'Calle 1',
+            direccion: 'Manantiales 0143',
             telefono: '+56912345678',
             empresa: 'TP',
             transporte: 'VAN',
@@ -45,10 +44,6 @@ const Checklist = () => {
         }
     ]
 
-    const handleInfoClick = (trabajador) => {
-        setSelectedWorker(trabajador);
-        document.getElementById('modal_info').showModal();
-    };
 
     return (
         <div className='bg-gray-100 h-full'>
@@ -83,26 +78,6 @@ const Checklist = () => {
                     </div>
                 )}
             </div>
-            {selectedWorker && (
-                <dialog id="modal_info" className="modal">
-                    <div className="modal-box bg-white font-primary">
-                        <form method="dialog">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-black " onClick={() => setSelectedWorker(null)}>✕</button>
-                        </form>
-                        <div className='flex justify-center items-center pb-5'>
-                            <h3 className="font-bold text-3xl text-black">Informacion</h3>
-                        </div>
-                        <div className='flex flex-col justify-center items-center gap-2'>
-                            <p className='text-black'>
-                                {selectedWorker.telefono}
-                            </p>
-                            <p className='text-black'>
-                                {selectedWorker.direccion}
-                            </p>
-                        </div>
-                    </div>
-                </dialog>
-            )}
         </div>
     );
 };
