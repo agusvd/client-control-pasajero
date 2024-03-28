@@ -5,9 +5,7 @@ import Checklist from '../../components/Checklist'
 const InicioChofer = () => {
     return (
         <div className='h-screen w-full font-primary flex flex-col'>
-            {/* Nav */}
             <NavMobile />
-            {/* Barra de IDA - Vuelta */}
             <Checklist/>
         </div>
     )

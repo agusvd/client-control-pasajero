@@ -1,12 +1,41 @@
 import React, { useState } from 'react'
 import Logo from '../assets/logo_color.svg'
 import { HiBars3 } from "react-icons/hi2";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast, Toaster } from 'react-hot-toast';
 
 const NavMobile = () => {
+    const navigate = useNavigate()
+    const handleLogout = (e) => {
+        e.preventDefault()
+        axios
+            .get('http://localhost:3000/api/auth/logout')
+            .then((res) => {
+                localStorage.removeItem('token');
+                toast.success(res.data.message);
+                setTimeout(() => {
+                    navigate('/');
+                }, 1500);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response;
+                    if (status === 401) {
+                        toast.error(data.message || 'No autorizado');
+                    } else {
+                        toast.error('Error desconocido');
+                    }
+                }
+            })
+            .finally(() => {
+                document.getElementById('menu').close(); // Cerrar el modal después de manejar el logout
+            });
+    };
 
     return (
         <div className='bg-white w-full h-16'>
+            <Toaster />
             <div className='flex justify-between items-center h-full px-4'>
                 <img src={Logo} alt='logo' className='h-full p-1' />
                 <button onClick={() => document.getElementById('menu').showModal()}
@@ -28,14 +57,13 @@ const NavMobile = () => {
                             <Link className='text-black text-2xl'>
                                 Trabajadores
                             </Link>
-                            <button className='text-black text-2xl'>
+                            <button onClick={handleLogout} className='text-black text-2xl'>
                                 Cerrar sesion
                             </button>
                         </div>
                     </div>
                 </dialog>
             </div>
-
         </div>
     )
 }
