@@ -5,9 +5,9 @@ const Lista = ({ trabajadores }) => {
 
     return (
         <div className='h-screen w-full p-4'>
-            <div className='border rounded-lg overflow-hidden border-[#27272A]'>
+            <div className='border rounded-lg overflow-hidden border-gray-200'>
                 <table className="table-auto min-w-full">
-                    <thead className='bg-[#0A0A0B] text-[#FAFAFA] border-b border-[#27272A]'>
+                    <thead className='bg-white text-[#0A0A0B] border-b border-gray-200'>
                         <tr>
                             <th className="px-4 py-2 text-start">Nombre</th>
                             <th className="px-4 py-2 text-start">Transporte</th>
@@ -16,18 +16,18 @@ const Lista = ({ trabajadores }) => {
                             <th className="px-4 py-2 text-start">Estado</th>
                         </tr>
                     </thead>
-                    <tbody className='divide-y divide-[#27272A]'>
+                    <tbody className='divide-y divide-gray-100'>
                         {trabajadores.map((trabajador) => (
                             <tr
                                 key={trabajador.id_trabajador}
-                                className={`${trabajador.estado ? 'bg-[#0A0A0B]' : 'bg-[#27272A]'} hover:bg-[#27272A] cursor-pointer transition-colors`}>
-                                <td className="px-4 py-2 text-[#FAFAFA]">
+                                className={`${trabajador.estado ? 'bg-white' : 'bg-gray-100'} hover:bg-gray-100 cursor-pointer transition-colors`}>
+                                <td className="px-4 py-2 text-[#0A0A0B]">
                                     {trabajador.nombre_completo}
                                 </td>
-                                <td className="px-4 py-2 text-[#FAFAFA]">{trabajador.transporte}</td>
-                                <td className="px-4 py-2 text-[#FAFAFA]">{trabajador.viaje_ida ? <span className='text-sky-300'>Si</span> : <span className='text-red-500'>No</span>}</td>
-                                <td className="px-4 py-2 text-[#FAFAFA]">{trabajador.viaje_vuelta ? <span className='text-sky-300'>Si</span> : <span className='text-red-500'>No</span>}</td>
-                                <td className="px-4 py-2">{trabajador.estado ? <span className="text-sky-300">Activo</span> : <span className="text-red-500">Inactivo</span>}</td>
+                                <td className="px-4 py-2 text-[#0A0A0B]">{trabajador.transporte}</td>
+                                <td className="px-4 py-2 text-[#0A0A0B]">{trabajador.viaje_ida ? <span className='text-[#0A0A0B]'>Si</span> : <span className='text-red-500'>No</span>}</td>
+                                <td className="px-4 py-2 text-[#0A0A0B]">{trabajador.viaje_vuelta ? <span className='text-[#0A0A0B]'>Si</span> : <span className='text-red-500'>No</span>}</td>
+                                <td className="px-4 py-2">{trabajador.estado ? <span className="text-green-500">Activo</span> : <span className="text-red-500">Inactivo</span>}</td>
                             </tr>
                         ))}
                     </tbody>

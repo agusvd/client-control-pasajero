@@ -42,11 +42,11 @@ const Vehiculos = ({ vehiculos }) => {
     };
 
     return (
-        <div className='h-screen w-full p-4'>
+        <div className='min-h-screen w-full p-4'>
             <Toaster />
-            <div className='border rounded-lg overflow-auto border-[#27272A]'>
+            <div className='border rounded-lg overflow-auto border-gray-200'>
                 <table className="table-auto min-w-full">
-                    <thead className='bg-[#0A0A0B] text-[#FAFAFA] border-b border-[#27272A]'>
+                    <thead className='text-[#0A0A0B] bg-white border-b border-gray-200'>
                         <tr>
                             <th className="px-4 py-2 text-start">Nombre</th>
                             <th className="px-4 py-2 text-start">patente</th>
@@ -58,15 +58,15 @@ const Vehiculos = ({ vehiculos }) => {
                         {vehiculos.map((vehiculo) => (
                             <tr
                                 key={vehiculo.id_vehiculo}
-                                className='hover:bg-[#27272A] cursor-pointer transition-colors'>
-                                <td className="px-4 py-2 text-[#FAFAFA]">{vehiculo.nombre}</td>
-                                <td className="px-4 py-2 text-[#FAFAFA]">{vehiculo.patente}</td>
-                                <td className="px-4 py-2 text-[#FAFAFA]">{vehiculo.capacidad}</td>
-                                <td className="px-4 py-2 text-[#FAFAFA] gap-2 flex">
-                                    <button className='text-[#0A0A0B] bg-[#FAFAFA] p-2 rounded-lg hover:bg-gray-200 hover:text-[#0A0A0B] transition-colors'>Editar</button>
+                                className='hover:bg-[#F4F4F5] transition-colors'>
+                                <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.nombre}</td>
+                                <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.patente}</td>
+                                <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.capacidad}</td>
+                                <td className="px-4 py-2 text-[#0A0A0B] gap-2 flex">
+                                    <button className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</button>
                                     <button
                                         onClick={() => handleDelete(vehiculo)}
-                                        className='text-[#0A0A0B] bg-[#FAFAFA] p-2 rounded-lg hover:bg-gray-200 hover:text-[#0A0A0B] transition-colors'>Eliminar</button>
+                                        className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Eliminar</button>
                                 </td>
                             </tr>
                         ))}

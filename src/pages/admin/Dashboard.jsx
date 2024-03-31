@@ -147,7 +147,7 @@ const Dashboard = () => {
     ]
 
     return (
-        <div className='min-h-screen w-full font-primary bg-[#0A0A0B]'>
+        <div className='min-h-screen w-full font-primary bg-white'>
             <Nav usuario='Agustin Villarroel'>
                 <NavItem link='/panel' text='Panel' />
                 <NavItem link='/panel/personal' text='Personal' />
@@ -155,19 +155,12 @@ const Dashboard = () => {
                 <NavItem link='/panel/opciones' text='Opciones' />
             </Nav>
 
-            <div>
-                <div className='p-4 border-b border-[#27272A]'>
-                    <h1 className='text-3xl text-[#FAFAFA] font-bold'>General</h1>
+            <div className='flex gap-2'>
+                <div className='flex flex-col gap-4 pt-4 pl-4'>
+                    <Resumen />
                 </div>
-                <div className='flex flex-col gap-2'>
-                    <div className='flex gap-4 pt-4 pl-4'>
-                        <Resumen />
-                    </div>
-                    <Lista trabajadores={trabajadores} />
-                </div>
+                <Lista trabajadores={trabajadores} />
             </div>
-
-
         </div>
     )
 }
