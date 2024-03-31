@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Nav, { NavItem } from '../../components/Nav'
-import Menu, {MenuItem} from '../../components/Menu'
+import Menu, { MenuItem } from '../../components/Menu'
 import Lista from '../../components/Lista'
-
+import Resumen from '../../components/Resumen'
 const Dashboard = () => {
-    const [currentPage, setCurrentPage] = useState(1); 
+    const [currentPage, setCurrentPage] = useState(1);
 
     const changePage = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -56,28 +56,118 @@ const Dashboard = () => {
             "viaje_ida": true,
             "viaje_vuelta": true,
         },
+        {
+            "id_trabajador": 5,
+            "nombre_completo": "Jose Rodriguez",
+            "direccion": "Calle 5",
+            "telefono": "1234567890",
+            "transporte": "TAXI",
+            "tipo_empresa": "TP",
+            "estado": true,
+            "viaje_ida": true,
+            "viaje_vuelta": true,
+        },
+        {
+            "id_trabajador": 6,
+            "nombre_completo": "Carlos Martinez",
+            "direccion": "Calle 6",
+            "telefono": "1234567890",
+            "transporte": "TAXI",
+            "tipo_empresa": "TP",
+            "estado": true,
+            "viaje_ida": true,
+            "viaje_vuelta": false,
+        },
+        {
+            "id_trabajador": 7,
+            "nombre_completo": "Luis Hernandez",
+            "direccion": "Calle 7",
+            "telefono": "1234567890",
+            "transporte": "VAN",
+            "tipo_empresa": "TP",
+            "estado": true,
+            "viaje_ida": true,
+            "viaje_vuelta": true,
+        },
+        {
+            "id_trabajador": 8,
+            "nombre_completo": "Jorge Torres",
+            "direccion": "Calle 8",
+            "telefono": "1234567890",
+            "transporte": "TAXI",
+            "tipo_empresa": "TP",
+            "estado": true,
+            "viaje_ida": true,
+            "viaje_vuelta": true,
+        },
+        {
+            "id_trabajador": 9,
+            "nombre_completo": "Diana Sanchez",
+            "direccion": "Calle 9",
+            "telefono": "1234567890",
+            "transporte": "VAN",
+            "tipo_empresa": "TP",
+            "estado": true,
+            "viaje_ida": true,
+            "viaje_vuelta": true,
+        },
+        {
+            "id_trabajador": 10,
+            "nombre_completo": "Rosa Flores",
+            "direccion": "Calle 10",
+            "telefono": "1234567890",
+            "transporte": "VAN",
+            "tipo_empresa": "TP",
+            "estado": true,
+            "viaje_ida": true,
+            "viaje_vuelta": true,
+        },
+        {
+            "id_trabajador": 11,
+            "nombre_completo": "Ramon Mendoza",
+            "direccion": "Calle 11",
+            "telefono": "1234567890",
+            "transporte": "VAN",
+            "tipo_empresa": "TP",
+            "estado": true,
+            "viaje_ida": true,
+            "viaje_vuelta": true,
+        },
+        {
+            "id_trabajador": 12,
+            "nombre_completo": "Fernanda Reyes",
+            "direccion": "Calle 12",
+            "telefono": "1234567890",
+            "transporte": "VAN",
+            "tipo_empresa": "TP",
+            "estado": true,
+            "viaje_ida": true,
+            "viaje_vuelta": true,
+        }
     ]
 
     return (
-        <div className='h-screen w-full font-primary bg-[#0A0A0B]'>
+        <div className='min-h-screen w-full font-primary bg-[#0A0A0B]'>
             <Nav usuario='Agustin Villarroel'>
                 <NavItem link='/panel' text='Panel' />
                 <NavItem link='/panel/personal' text='Personal' />
-                <NavItem link='/panel/Opciones' text='Opciones' />
+                <NavItem link='/panel/reportes' text='Reportes' />
+                <NavItem link='/panel/opciones' text='Opciones' />
             </Nav>
-            <h1 className='text-4xl font-semibold pl-4 pt-6 text-[#FAFAFA]'>
-                Panel
-            </h1>
-            <Menu>
-                <MenuItem text='Resumen' number={1} changePage={changePage} />
-                <MenuItem text='Lista' number={2} changePage={changePage}/>
-                <MenuItem text='Viajes' number={3} changePage={changePage}/>
-                <MenuItem text='Reportes' number={4} changePage={changePage} />
-            </Menu>
-            {currentPage === 1 && <h1 className='text-[#FAFAFA]'>Resumen</h1>}
-            {currentPage === 2 && <Lista trabajadores={trabajadores} />}
-            {currentPage === 3 && <h1 className='text-[#FAFAFA]'>Viajes</h1>}
-            {currentPage === 4 && <h1 className='text-[#FAFAFA]'>Reportes</h1>}
+
+            <div>
+                <div className='p-4 border-b border-[#27272A]'>
+                    <h1 className='text-3xl text-[#FAFAFA] font-bold'>General</h1>
+                </div>
+                <div className='flex flex-col gap-2'>
+                    <div className='flex gap-4 pt-4 pl-4'>
+                        <Resumen />
+                    </div>
+                    <Lista trabajadores={trabajadores} />
+                </div>
+            </div>
+
+
         </div>
     )
 }

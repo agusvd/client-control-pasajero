@@ -98,7 +98,7 @@ export function NavItem({ link, text }) {
 
     return (
         <Link to={link}
-            className={`p-2 duration-300 ease-in-out transition-all ${isActive ? 'text-[#FAFAFA]' : 'hover:text-[#FAFAFA] text-[#27272A]'}`}>
+            className={`p-2 duration-300 ease-in-out transition-all ${isActive ? 'text-[#FAFAFA]' : 'hover:text-[#FAFAFA] text-[#444446]'}`}>
             {text}
         </Link>
     )

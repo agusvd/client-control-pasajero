@@ -65,7 +65,7 @@ const Login = () => {
             })
     }
     
-    // si el usuario esta logeado, redireccionar
+    // si el usuario esta logeado, redireccionar pero si no esta logeado, mostrar el login
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (token) {
@@ -77,7 +77,10 @@ const Login = () => {
                 navigate('/inicio')
             }
         }
-    })
+        else {
+            navigate('/')
+        }
+    }, [])
 
     return (
         <div className='h-screen fondo-main font-primary'>

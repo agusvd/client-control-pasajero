@@ -1,25 +1,19 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode';
+import {jwtDecode } from 'jwt-decode';
 
 const useAuth = () => {
-    const token = document.cookie.split(';').find((cookie) => cookie.trim().startsWith('token='));
-    console.log(token);
-
+    const token = localStorage.getItem('token');
     if (token) {
-        const decodedToken = jwtDecode(token.split('=')[1].trim());
-        const role = decodedToken.role; // Obtener el valor del campo 'role' del token
-        return role; // Devolver el rol del usuario
+        const decodedToken = jwtDecode(token);
+        const role = decodedToken.role;
+        return role;
     }
-
-    return null; // Si no hay token, devolver null
+    return null;
 };
 
 const PrivateRoute = ({ allowedRoles }) => {
     const role = useAuth();
-    console.log(role);
-
-    // Verificar si el rol del usuario está permitido
     const isAllowed = role && allowedRoles.includes(role);
 
     return isAllowed ? <Outlet /> : <Navigate to="/404" />;

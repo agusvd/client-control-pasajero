@@ -15,6 +15,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        
         <Route path="/inicio" element={<PrivateRoute allowedRoles={['chofer', 'admin']} />}>
           <Route path="/inicio" element={<InicioChofer />} />
         </Route>
