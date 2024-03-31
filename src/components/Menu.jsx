@@ -16,17 +16,18 @@ export default function Menu({ children }) {
     );
 }
 
-export function MenuItem({ text, number }) {
+export function MenuItem({ text, number, changePage }) {
     const { activeItem, setActiveItem } = useContext(MenuContext);
 
     const handleClick = () => {
         setActiveItem(number);
+        changePage(number)
     };
 
     return (
         <button
             onClick={handleClick}
-            className={`text-[#FAFAFA] p-2 hover:bg-[#0A0A0B] rounded-lg duration-300 ease-in-out transition-all text-sm ${activeItem === number ? 'bg-[#0A0A0B]' : ''}`}>
+            className={`text-[#FAFAFA] p-2 hover:bg-[#0A0A0B] rounded-lg transition-colors text-sm ${activeItem === number ? 'bg-[#0A0A0B]' : ''}`}>
             {text}
         </button>
     );

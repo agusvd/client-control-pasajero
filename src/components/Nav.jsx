@@ -80,10 +80,10 @@ export default function Nav({ children }) {
                             <div className="border-b border-[#27272A] p-1">
                                 <h4 className="font-light text-[#FAFAFA] first-letter:uppercase">{usuario}</h4>
                             </div>
-                            <Link className="text-[#FAFAFA] p-1 hover:bg-[#27272A] rounded-md ease-in-out transition-all duration-300">Pefil</Link>
+                            <Link className="text-[#FAFAFA] p-1 hover:bg-[#27272A] rounded-md transition-colors">Pefil</Link>
                             <Link
                                 onClick={handleLogout}
-                                className="text-[#FAFAFA] p-1 hover:bg-[#27272A] rounded-md ease-in-out transition-all duration-300">Cerrar sesion</Link>
+                                className="text-[#FAFAFA] p-1 hover:bg-[#27272A] rounded-md transition-colors">Cerrar sesion</Link>
                         </ul>
                     </div>
                 </div>
