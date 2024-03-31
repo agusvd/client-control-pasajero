@@ -39,7 +39,6 @@ const TablaTrabajadores = ({ trabajadores }) => {
                                 No
                             </span>
                         </button>
-
                     </div>
 
                 </div>
@@ -48,19 +47,19 @@ const TablaTrabajadores = ({ trabajadores }) => {
     };
 
     return (
-        <div className='bg-gray-100 w-full p-4'>
-            <div className='flex justify-center items-center'>
-                <h1 className='text-3xl text-black font-bold mb-4'>Trabajadores</h1>
+        <div className='w-full p-4'>
+            <div className='flex justify-start items-center'>
+                <h1 className='text-3xl text-[#FAFAFA] font-bold mb-4'>Trabajadores</h1>
             </div>
-            <div className="overflow-x-auto rounded-md">
-                <table className="min-w-full rounded-md text-center">
-                    <thead className='bg-[#202020] text-white rounded-t-md'>
+            <div className='border rounded-lg overflow-hidden border-[#27272A]'>
+                <table className="table-auto min-w-full">
+                    <thead className='bg-[#0A0A0B] text-[#FAFAFA] border-b border-[#27272A]'>
                         <tr>
-                            <th className="px-4 py-2">Nombre</th>
-                            <th className="px-4 py-2">Transporte</th>
-                            <th className="px-4 py-2">Estado</th>
-                            <th className="px-4 py-2">Viaje Ida</th>
-                            <th className="px-4 py-2">Viaje Vuelta</th>
+                            <th className="px-4 py-2 text-start">Nombre</th>
+                            <th className="px-4 py-2 text-start">Transporte</th>
+                            <th className="px-4 py-2 text-start">Estado</th>
+                            <th className="px-4 py-2 text-start">Viaje Ida</th>
+                            <th className="px-4 py-2 text-start">Viaje Vuelta</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,53 +67,53 @@ const TablaTrabajadores = ({ trabajadores }) => {
                             <tr
                                 key={trabajador.id_trabajador}
                                 onClick={() => openModal(trabajador)}
-                                className={`${trabajador.estado ? 'bg-green-100' : 'bg-red-100'} hover:bg-white cursor-pointer transition-colors`}
-                            >
-                                <td className="px-4 py-2 text-black">
+                                className={`${trabajador.estado ? 'bg-[#0A0A0B]' : 'bg-[#27272A]'} hover:bg-[#27272A] cursor-pointer transition-colors`}>
+                                <td className="px-4 py-2 text-[#FAFAFA]">
                                     {trabajador.nombre_completo}
                                 </td>
-                                <td className="px-4 py-2 text-black">{trabajador.transporte}</td>
+                                <td className="px-4 py-2 text-[#FAFAFA]">{trabajador.transporte}</td>
                                 <td className="px-4 py-2">{trabajador.estado ? <span className="text-green-500">Activo</span> : <span className="text-red-500">Inactivo</span>}</td>
-                                <td className="px-4 py-2 text-black">{trabajador.viaje_ida ? 'Si' : 'No'}</td>
-                                <td className="px-4 py-2 text-black">{trabajador.viaje_vuelta ? 'Si' : 'No'}</td>
+                                <td className="px-4 py-2 text-[#FAFAFA]">{trabajador.viaje_ida ? 'Si' : 'No'}</td>
+                                <td className="px-4 py-2 text-[#FAFAFA]">{trabajador.viaje_vuelta ? 'Si' : 'No'}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+
             {trabajadorSeleccionado && (
-                <dialog open className="modal" onClick={closeModal}>
-                    <div className="modal-box bg-white" onClick={(e) => e.stopPropagation()}>
+                <dialog open className="modal bg-black/50" onClick={closeModal}>
+                    <div className="modal-box bg-[#0A0A0B]" onClick={(e) => e.stopPropagation()}>
                         <form method="dialog">
                             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-red-500" onClick={closeModal}>✕</button>
-                            <h3 className="font-bold text-lg text-black text-center">{trabajadorSeleccionado.nombre_completo}</h3>
-                            <div className='border-2 w-full'>
+                            <h3 className="text-xl text-[#FAFAFA] text-center pb-4">Informacion de <b>{trabajadorSeleccionado.nombre_completo}</b></h3>
+                            <div className=' w-full'>
                                 <div className='flex justify-around items-center text-center'>
-                                    <div className='border-2 w-full text-black font-bold'>
-                                        <p>Telefono</p>
-                                        <p>Direccion</p>
-                                        <p>Empresa</p>
-                                        <p>Transporte</p>
-                                        <p>Estado</p>
-                                        <p>Viaja IDA</p>
-                                        <p>Viaja vuelta</p>
+                                    <div className='border-2 w-full text-start p-1'>
+                                        <p className='text-[#FAFAFA]'>Telefono</p>
+                                        <p className='text-[#FAFAFA]'>Direccion</p>
+                                        <p className='text-[#FAFAFA]'>Empresa</p>
+                                        <p className='text-[#FAFAFA]'>Transporte</p>
+                                        <p className='text-[#FAFAFA]'>Estado</p>
+                                        <p className='text-[#FAFAFA]'>Viaja IDA</p>
+                                        <p className='text-[#FAFAFA]'>Viaja vuelta</p>
                                     </div>
-                                    <div className='border-2 w-full text-black'>
-                                        <p>{trabajadorSeleccionado.telefono}</p>
-                                        <p>{trabajadorSeleccionado.direccion}</p>
-                                        <p>{trabajadorSeleccionado.tipo_empresa}</p>
-                                        <p>{trabajadorSeleccionado.transporte}</p>
-                                        <p>{trabajadorSeleccionado.estado ? <span className='text-green-500'>Activo</span> : <span className='text-red-500'>Inactivo</span>}</p>
-                                        <p>{trabajadorSeleccionado.viaja_ida ? <span>Si</span> : <span>No</span>}</p>
-                                        <p>{trabajadorSeleccionado.viaja_vuelta ? <span>Si</span> : <span>No</span>}</p>
+                                    <div className='border-2 border-l-0 k w-full p-1 text-start'>
+                                        <p className='text-[#FAFAFA]'>{trabajadorSeleccionado.telefono}</p>
+                                        <p className='text-[#FAFAFA]'>{trabajadorSeleccionado.direccion}</p>
+                                        <p className='text-[#FAFAFA]'>{trabajadorSeleccionado.tipo_empresa}</p>
+                                        <p className='text-[#FAFAFA]'>{trabajadorSeleccionado.transporte}</p>
+                                        <p className='text-[#FAFAFA]'>{trabajadorSeleccionado.estado ? <span className='text-green-500'>Activo</span> : <span className='text-red-500'>Inactivo</span>}</p>
+                                        <p className='text-[#FAFAFA]'>{trabajadorSeleccionado.viaja_ida ? <span>Si</span> : <span>No</span>}</p>
+                                        <p className='text-[#FAFAFA]'>{trabajadorSeleccionado.viaja_vuelta ? <span>Si</span> : <span>No</span>}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className=' pt-5 flex justify-around items-center'>
-                                <div className="btn btn-sm bg-cyan-500 hover:bg-black btn-primary text-white">
+                                <div className="btn btn-sm bg-[#0A0A0B] border-[#27272A] text-white">
                                     Editar trabajador
                                 </div>
-                                <div onClick={confirmDelete} className="btn btn-sm bg-red-500 hover:bg-black btn-primary text-white">
+                                <div onClick={confirmDelete} className="btn btn-sm bg-[#0A0A0B] border-[#27272A] text-white">
                                     Elimitar trabajador
                                 </div>
                             </div>

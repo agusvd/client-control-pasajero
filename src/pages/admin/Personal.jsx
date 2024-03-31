@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { LuLayoutGrid, LuUsers, LuBus, LuBarChart, LuListChecks } from 'react-icons/lu';
-import Sidebar from '../../components/Sidebard';
-import { SidebarItem } from '../../components/Sidebard';
 import TablaTrabajadores from '../../components/TablaTrabajadores';
-import axios from 'axios';
+import Menu, { MenuItem } from '../../components/Menu';
+import Nav, { NavItem } from '../../components/Nav';
 
-const Trabajadores = () => {
+
+const Personal = () => {
     const trabajadores = [
         {
             "id_trabajador": 1,
@@ -53,31 +53,26 @@ const Trabajadores = () => {
         },
     ]
 
-    const [opcion, setOpcion] = useState(0)
 
     return (
-        <div className='h-screen w-full flex font-primary'>
-            <Sidebar>
-                <SidebarItem icon={<LuLayoutGrid size={20} />} text="Inicio" link='/admin' />
-                <SidebarItem icon={<LuUsers size={20} />} text="Trabajadores" link='/admin/trabajadores' />
-                <SidebarItem icon={<LuListChecks size={20} />} text="Lista" link='/admin/lista' />
-                <SidebarItem icon={<LuBus size={20} />} text="Viajes" link='/admin/viajes' />
-                <SidebarItem icon={<LuBarChart size={20} />} text="Reportes" link='/admin/reportes' />
-            </Sidebar>
-            <div className='h-full w-full bg-gray-100 flex flex-col'>
-                <div className='h-[70px] border-b-2 flex justify-center items-center gap-3'>
-                    <button className='text-black p-2 rounded-md bg-white shadow-md'>
-                        Trabajadores
-                    </button>
-                    <button className='text-black p-2 rounded-md bg-white shadow-md'>
-                        Conductores
-                    </button>
-                </div>
-                <TablaTrabajadores trabajadores={trabajadores} />
+        <div className='h-screen w-full font-primary bg-[#0A0A0B]'>
+            <Nav usuario='Agustin Villarroel'>
+                <NavItem link='/panel' text='Panel' />
+                <NavItem link='/panel/personal' text='Personal' />
+                <NavItem link='/panel/Opciones' text='Opciones' />
+            </Nav>
+            <div>
+                <h1 className='text-4xl font-semibold pl-4 pt-6 text-[#FAFAFA]'>
+                    Personal
+                </h1>
             </div>
-
+            <Menu>
+                <MenuItem text='Trabajadores' number={1} />
+                <MenuItem text='Conductores' number={2} />
+            </Menu>
+            <TablaTrabajadores trabajadores={trabajadores} />
         </div>
     )
 }
 
-export default Trabajadores;
+export default Personal;

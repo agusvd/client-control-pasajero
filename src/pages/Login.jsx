@@ -8,7 +8,6 @@ import axios from 'axios';
 
 
 const Login = () => {
-
     // hook para redireccionar
     const navigate = useNavigate()
     // valores del formulario
@@ -16,7 +15,6 @@ const Login = () => {
         usuario: '',
         password: '',
     });
-
 
     axios.defaults.withCredentials = true;
 
@@ -37,7 +35,7 @@ const Login = () => {
                     if (decoded.admin) {
                         toast.success('Bienvenido administrador')
                         setTimeout(() => {
-                            navigate('/admin')
+                            navigate('/panel')
                         }, 1500)
                     }
                     if (decoded.chofer) {
@@ -66,6 +64,20 @@ const Login = () => {
                 }
             })
     }
+    
+    // si el usuario esta logeado, redireccionar
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (token) {
+            const decoded = jwtDecode(token)
+            if (decoded.admin) {
+                navigate('/panel')
+            }
+            if (decoded.chofer) {
+                navigate('/inicio')
+            }
+        }
+    })
 
     return (
         <div className='h-screen fondo-main font-primary'>

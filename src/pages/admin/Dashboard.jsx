@@ -1,19 +1,24 @@
 import React from 'react'
-import Sidebard from '../../components/Sidebard'
-import { SidebarItem } from '../../components/Sidebard';
-import { LuLayoutGrid, LuBus, LuBarChart, LuUsers, LuListChecks } from "react-icons/lu";
+import Nav, { NavItem } from '../../components/Nav'
+import Menu, {MenuItem} from '../../components/Menu'
 
 
 const Dashboard = () => {
     return (
-        <div className='h-screen font-primary flex w-full'>
-            <Sidebard>
-                <SidebarItem icon={<LuLayoutGrid size={20}/>} text="Inicio" link='/admin' />
-                <SidebarItem icon={<LuUsers size={20}/>} text="Trabajadores" link='/admin/trabajadores' />
-                <SidebarItem icon={<LuListChecks size={20} />} text="Lista" link='/admin/lista' />
-                <SidebarItem icon={<LuBus size={20}/>} text="Viajes" link='/admin/viajes' />
-                <SidebarItem icon={<LuBarChart size={20}/>} text="Reportes" link='/admin/reportes' />
-            </Sidebard>
+        <div className='h-screen w-full font-primary bg-[#0A0A0B]'>
+            <Nav usuario='Agustin Villarroel'>
+                <NavItem link='/panel' text='Panel' />
+                <NavItem link='/panel/personal' text='Personal' />
+                <NavItem link='/panel/Opciones' text='Opciones' />
+            </Nav>
+            <h1 className='text-4xl font-semibold pl-4 pt-6 text-[#FAFAFA]'>
+                Panel
+            </h1>
+            <Menu>
+                <MenuItem text='Resumen' number={1} />
+                <MenuItem text='Viajes' number={2} />
+                <MenuItem text='Reportes' number={3} />
+            </Menu>
         </div>
     )
 }
