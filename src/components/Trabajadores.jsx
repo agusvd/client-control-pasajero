@@ -1,10 +1,50 @@
 import React, { useState, useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast';
+import axios from 'axios';
 
-const Trabajadores = ({ trabajadores }) => {
+const Trabajadores = () => {
 
     const [selectedTrabajador, setSelectedTrabajador] = useState(null);
+    const [trabajadores, setTrabajadores] = useState([]);
 
+    // peticion get
+    useEffect(() => {
+        axios
+            .get('http://localhost:3000/api/dashboard/trabajadores')
+            .then((res) => {
+                setTrabajadores(res.data)
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response;
+                    if (status === 401) {
+                        toast.error(data.message || 'No autorizado');
+                    } else {
+                        toast.error('Error desconocido');
+                    }
+                }
+            });
+    }, [])
+
+    // funcion para eliminar trabajador
+    const eliminarTrabajador = (id_trabajador) => {
+        axios
+            .delete(`http://localhost:3000/api/dashboard/trabajadores/${id_trabajador}`)
+            .then((res) => {
+                toast.success(res.data.message);
+                setTrabajadores(trabajadores.filter((v) => v.id_trabajador !== id_trabajador));
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response;
+                    if (status === 400) {
+                        toast.error(data.message || 'Error al eliminar el trabajador');
+                    } else {
+                        toast.error('Error de red');
+                    }
+                }
+            });
+    }
 
     // confirmar eliminacion
     const handleDelete = (trabajador) => {
@@ -14,11 +54,7 @@ const Trabajadores = ({ trabajadores }) => {
                 <div className='flex gap-2 bg-[#0A0A0B] w-full'>
                     <p className='text-wrap'>¿Seguro que quiere eliminar a <b>{trabajador.nombre_completo}?</b></p>
                     <button
-                        onClick={() => {
-                            // Aquí deberías agregar la lógica para eliminar realmente al trabajador
-                            // Puede ser una función que llame a una API para eliminar al trabajador de la base de datos
-                            toast.dismiss(t.id);
-                        }}
+                        onClick={() => eliminarTrabajador(trabajador.id_trabajador)}
                         className='border-[#27272a] border text-[#FAFAFA] p-2 rounded-lg hover:bg-[#FAFAFA] hover:text-[#0A0A0B] transition-colors text-sm px-3 py-1.5'>
                         Sí
                     </button>
@@ -28,7 +64,7 @@ const Trabajadores = ({ trabajadores }) => {
                         No
                     </button>
                 </div>
-            ), { 
+            ), {
                 icon: '😳',
                 style: {
                     border: '1px solid #27272A',
@@ -57,6 +93,11 @@ const Trabajadores = ({ trabajadores }) => {
                         </tr>
                     </thead>
                     <tbody>
+                        {trabajadores.length === 0 && (
+                            <tr>
+                                <td colSpan='5' className='text-center text-[#0A0A0B]'>No hay trabajadores</td>
+                            </tr>
+                        )}
                         {trabajadores.map((trabajador) => (
                             <tr
                                 key={trabajador.id_trabajador}
@@ -73,6 +114,7 @@ const Trabajadores = ({ trabajadores }) => {
                                 </td>
                             </tr>
                         ))}
+
                     </tbody>
                 </table>
             </div>

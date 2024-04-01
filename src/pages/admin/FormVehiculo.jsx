@@ -72,7 +72,7 @@ const FormVehiculo = () => {
                             <input type='number' name='capacidad' className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]'
                             onChange={e => setValues({ ...values, capacidad: e.target.value })} />
                         </div>
-                        <button className='bg-[#FF5757] text-white p-2 rounded-md'>Guardar</button>
+                        <button className='bg-[#FF5757] text-white p-2 rounded-md w-1/2'>Guardar</button>
                     </form>
                 </div>
             </div>

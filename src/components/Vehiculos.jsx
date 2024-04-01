@@ -1,7 +1,50 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { toast, Toaster } from 'react-hot-toast';
+import axios from 'axios';
 
-const Vehiculos = ({ vehiculos }) => {
+const Vehiculos = () => {
+    
+    const [vehiculos, setVehiculos] = useState([]);
+    // peticion get
+    useEffect(() => {
+        axios
+            .get('http://localhost:3000/api/dashboard/vehiculos')
+            .then((res) => {
+                setVehiculos(res.data)
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response;
+                    if (status === 401) {
+                        toast.error(data.message || 'No autorizado');
+                    } else {
+                        toast.error('Error desconocido');
+                    }
+                }
+            });
+    }, [])
+
+    // funcion para eliminar vehiculo
+
+    const eliminarVehiculo = (id_vehiculo) => {
+        axios
+            .delete(`http://localhost:3000/api/dashboard/vehiculos/${id_vehiculo}`)
+            .then((res) => {
+                toast.success(res.data.message);
+                setVehiculos(vehiculos.filter((v) => v.id_vehiculo !== id_vehiculo));
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response;
+                    if (status === 400) {
+                        toast.error(data.message || 'Error al eliminar el vehiculo');
+                    } else {
+                        toast.error('Error de red');
+                    }
+                }
+            });
+    }
+
     const [selectedVehiculo, setSelectedVehiculo] = useState(null);
 
 
@@ -13,11 +56,7 @@ const Vehiculos = ({ vehiculos }) => {
                 <div className='flex gap-2 bg-[#0A0A0B] w-full'>
                     <p className='text-wrap'>¿Seguro que quiere eliminar a <b>{vehiculo.nombre}?</b></p>
                     <button
-                        onClick={() => {
-                            // Aquí deberías agregar la lógica para eliminar realmente al vehiculo
-                            // Puede ser una función que llame a una API para eliminar al vehiculo de la base de datos
-                            toast.dismiss(t.id);
-                        }}
+                        onClick={() => eliminarVehiculo(vehiculo.id_vehiculo)}
                         className='border-[#27272a] border text-[#FAFAFA] p-2 rounded-lg hover:bg-[#FAFAFA] hover:text-[#0A0A0B] transition-colors text-sm px-3 py-1.5'>
                         Sí
                     </button>
@@ -55,6 +94,11 @@ const Vehiculos = ({ vehiculos }) => {
                         </tr>
                     </thead>
                     <tbody>
+                        {vehiculos.length === 0 && (
+                            <tr>
+                                <td className='text-center' colSpan={4}>No hay vehiculos</td>
+                            </tr>
+                        )}
                         {vehiculos.map((vehiculo) => (
                             <tr
                                 key={vehiculo.id_vehiculo}

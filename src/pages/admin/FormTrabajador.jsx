@@ -3,11 +3,66 @@ import axios from 'axios'
 import Nav, { NavItem } from '../../components/Nav'
 import { Link } from 'react-router-dom'
 import { LuArrowLeft } from 'react-icons/lu'
+import { toast, Toaster } from 'react-hot-toast'
 
 
 const FormTrabajador = () => {
+
+    const [values, setValues] = useState({
+        nombre_completo: '',
+        direccion: '',
+        telefono: '',
+        transporte: '',
+        tipo_empresa: '',
+        estado: '',
+        viaja_ida: '',
+        viaja_vuelta: '',
+    })
+
+
+    const [vehiculos, setVehiculos] = useState([])
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:3000/api/dashboard/vehiculos')
+            .then((res) => {
+                setVehiculos(res.data)
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response
+                    if (status === 401) {
+                        toast.error(data.message || 'No autorizado')
+                    } else {
+                        toast.error('Error desconocido')
+                    }
+                }
+            })
+    }, [])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        axios
+            .post('http://localhost:3000/api/dashboard/trabajadores', { ...values })
+            .then((res) => {
+                toast.success(res.data.message)
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response
+                    if (status === 400) {
+                        toast.error(data.message || 'Error al agregar el trabajador')
+                    } else {
+                        toast.error('Error de red')
+                    }
+                }
+            })
+    }
+
+
     return (
         <div className='min-h-screen w-full font-primary bg-white'>
+            <Toaster />
             <Nav usuario='Agustin Villarroel'>
                 <NavItem link='/panel' text='Panel' />
                 <NavItem link='/panel/personal' text='Personal' />
@@ -24,53 +79,75 @@ const FormTrabajador = () => {
                     <p className='text-zinc-400'>Rellena el Formulario para agregar a un nuevo Trabajador</p>
                 </div>
                 <div className='flex justify-center pt-5'>
-                    <form className='w-full'>
+                    <form onSubmit={handleSubmit} className='w-full'>
                         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4'>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Nombre Completo</label>
-                                <input type='text' placeholder='Nombre Completo...' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]' />
+                                <input type='text' name='nombre_completo' placeholder='Nombre Completo...' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
+                                    onChange={(e) => setValues({ ...values, nombre_completo: e.target.value })}
+                                />
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Direccion</label>
-                                <input type='text' placeholder='Direccion...' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]' />
+                                <input type='text' name='direccion' placeholder='Direccion...' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
+                                    onChange={(e) => setValues({ ...values, direccion: e.target.value })}
+                                />
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Telefono</label>
-                                <input type='text' placeholder='912341234' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]' />
+                                <input type='text' name='telefono' placeholder='912341234' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
+                                    onChange={(e) => setValues({ ...values, telefono: e.target.value })}
+                                />
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Transporte</label>
-                                <select className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'>
-                                    <option value='VAN'>VAN</option>
-                                    <option value='TAXI'>TAXI</option>
+                                <select name='transporte' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
+                                    onChange={(e) => setValues({ ...values, transporte: e.target.value })}
+                                >
+                                    <option value=''>Selecciona un Vehiculo</option>
+                                    {vehiculos.map((vehiculo) => (
+                                        <option key={vehiculo.id_vehiculo} value={vehiculo.nombre}>{vehiculo.nombre}</option>
+                                    ))}
                                 </select>
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Tipo de Empresa</label>
-                                <select className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'>
+                                <select name='tipo_empresa' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
+                                    onChange={(e) => setValues({ ...values, tipo_empresa: e.target.value })}
+                                >
+                                    <option value=''>Selecciona un Tipo de Empresa</option>
                                     <option value='EST'>EST</option>
                                     <option value='TP'>TP</option>
                                 </select>
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Estado</label>
-                                <select className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'>
-                                    <option value='true'>Activo</option>
-                                    <option value='false'>Inactivo</option>
+                                <select name='estado' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
+                                    onChange={(e) => setValues({ ...values, estado: e.target.value })}
+                                >
+                                    <option value=''>Selecciona un Estado</option>
+                                    <option value='activo'>Activo</option>
+                                    <option value='inactivo'>Inactivo</option>
                                 </select>
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Viaje Ida</label>
-                                <select className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'>
-                                    <option value='true'>Si</option>
-                                    <option value='false'>No</option>
+                                <select name='viaje_ida' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
+                                    onChange={(e) => setValues({ ...values, viaja_ida: e.target.value })}
+                                >
+                                    <option value=''>Selecciona</option>
+                                    <option value='si'>Si</option>
+                                    <option value='no'>No</option>
                                 </select>
                             </div>
                             <div className='flex flex-col gap-2'>
                                 <label className='text-[#0A0A0B]'>Viaje Vuelta</label>
-                                <select className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'>
-                                    <option value='true'>Si</option>
-                                    <option value='false'>No</option>
+                                <select name='viaje_vuelta' className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
+                                    onChange={(e) => setValues({ ...values, viaja_vuelta: e.target.value })}
+                                >
+                                    <option value=''>Selecciona</option>
+                                    <option value='si'>Si</option>
+                                    <option value='no'>No</option>
                                 </select>
                             </div>
                         </div>

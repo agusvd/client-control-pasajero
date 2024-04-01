@@ -1,11 +1,76 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast';
+import axios from 'axios';
 
-
-const Conductores = ({ conductores }) => {
+const Conductores = () => {
 
     const [selectedConductor, setSelectedConductor] = useState(null);
 
+    const [conductores, setConductores] = useState([]);
+    const [vehiculos, setVehiculos] = useState([]);
+
+    // peticion get conductores
+    useEffect(() => {
+        axios
+            .get('http://localhost:3000/api/user/users/conductor')
+            .then((res) => {
+                setConductores(res.data)
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response;
+                    if (status === 401) {
+                        toast.error(data.message || 'No autorizado');
+                    } else {
+                        toast.error('Error desconocido');
+                    }
+                }
+            });
+
+        axios
+            .get('http://localhost:3000/api/dashboard/vehiculos')
+            .then((res) => {
+                setVehiculos(res.data);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response;
+                    if (status === 401) {
+                        toast.error(data.message || 'No autorizado');
+                    } else {
+                        toast.error('Error desconocido');
+                    }
+                }
+            });
+    }, [])
+
+    // Obtener el nombre del vehículo
+    const getVehiculoName = (id_vehiculo) => {
+        const vehiculo = vehiculos.find((v) => v.id_vehiculo === id_vehiculo);
+        return vehiculo ? vehiculo.nombre : 'Vehiculo no encontrado';
+    };
+
+
+
+    // funcion eliminar conductor
+    const eliminarConductor = (id_conductor) => {
+        axios
+            .delete(`http://localhost:3000/api/user/users/chofer/${id_conductor}`)
+            .then((res) => {
+                toast.success(res.data.message);
+                setConductores(conductores.filter((v) => v.id_conductor !== id_conductor));
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response;
+                    if (status === 400) {
+                        toast.error(data.message || 'Error al eliminar el trabajador');
+                    } else {
+                        toast.error('Error de red');
+                    }
+                }
+            });
+    }
 
     // confirmar eliminacion
     const handleDelete = (conductor) => {
@@ -15,11 +80,7 @@ const Conductores = ({ conductores }) => {
                 <div className='flex gap-2 bg-[#0A0A0B] w-full'>
                     <p className='text-wrap'>¿Seguro que quiere eliminar a <b>{conductor.nombre_completo}?</b></p>
                     <button
-                        onClick={() => {
-                            // Aquí deberías agregar la lógica para eliminar realmente al conductor
-                            // Puede ser una función que llame a una API para eliminar al conductor de la base de datos
-                            toast.dismiss(t.id);
-                        }}
+                        onClick={() => eliminarConductor(conductor.id_conductor)}
                         className='border-[#27272a] border text-[#FAFAFA] p-2 rounded-lg hover:bg-[#FAFAFA] hover:text-[#0A0A0B] transition-colors text-sm px-3 py-1.5'>
                         Sí
                     </button>
@@ -57,13 +118,18 @@ const Conductores = ({ conductores }) => {
                         </tr>
                     </thead>
                     <tbody>
+                        {conductores.length === 0 && (
+                            <tr>
+                                <td colSpan={4} className='text-[#0A0A0B] text-center'>No hay conductores</td>
+                            </tr>
+                        )}
                         {conductores.map((conductor) => (
                             <tr
                                 key={conductor.id_conductor}
                                 className='hover:bg-[#F4F4F5] transition-colors'>
                                 <td className="px-4 py-2 text-[#0A0A0B]">{conductor.nombre_completo}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B]">{conductor.telefono}</td>
-                                <td className="px-4 py-2 text-[#0A0A0B]">{conductor.vehiculo}</td>
+                                <td className="px-4 py-2 text-[#0A0A0B]">{getVehiculoName(conductor.id_vehiculo)}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B] gap-2 flex">
                                     <button className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</button>
                                     <button
