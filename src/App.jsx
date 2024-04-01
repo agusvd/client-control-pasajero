@@ -11,13 +11,16 @@ import FormTrabajador from "./pages/admin/FormTrabajador";
 import FormVehiculo from "./pages/admin/FormVehiculo";
 import ListaIda from "./pages/chofer/ListaIda";
 import ListaVuelta from "./pages/chofer/ListaVuelta";
+import Reportes from "./pages/admin/Reportes";
+import EditarVehiculo from "./pages/admin/EditarVehiculo";
+import EditarConductor from "./pages/admin/EditarConductor";
+import EditarTrabajador from "./pages/admin/EditarTrabajador";
 function App() {
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        
         <Route path="/inicio" element={<PrivateRoute allowedRoles={['chofer', 'admin']} />}>
           <Route path="/inicio" element={<InicioChofer />} />
         </Route>
@@ -36,11 +39,23 @@ function App() {
         <Route path='/panel/personal/nuevo-trabajador' element={<PrivateRoute allowedRoles={['admin']} />}>
           <Route path="/panel/personal/nuevo-trabajador" element={<FormTrabajador />} />
         </Route>
+        <Route path='/panel/personal/editar-trabajador/:id' element={<PrivateRoute allowedRoles={['admin']} />}>
+          <Route path="/panel/personal/editar-trabajador/:id" element={<EditarTrabajador />} />
+        </Route>
         <Route path='/panel/personal/nuevo-conductor' element={<PrivateRoute allowedRoles={['admin']} />}>
           <Route path="/panel/personal/nuevo-conductor" element={<FormConductor />} />
         </Route>
+        <Route path='/panel/personal/editar-conductor/:id' element={<PrivateRoute allowedRoles={['admin']} />}>
+          <Route path="/panel/personal/editar-conductor/:id" element={<EditarConductor />} />
+        </Route>
         <Route path='/panel/personal/nuevo-vehiculo' element={<PrivateRoute allowedRoles={['admin']} />}>
           <Route path="/panel/personal/nuevo-vehiculo" element={<FormVehiculo />} />
+        </Route>
+        <Route path='/panel/personal/editar-vehiculo/:id' element={<PrivateRoute allowedRoles={['admin']} />}>
+          <Route path="/panel/personal/editar-vehiculo/:id" element={<EditarVehiculo />} />
+        </Route>
+        <Route path="/panel/reportes" element={<PrivateRoute allowedRoles={['admin']}/>}>
+          <Route path="/panel/reportes" element={<Reportes />} />
         </Route>
         <Route path="*" element={<NotFound />} />
 

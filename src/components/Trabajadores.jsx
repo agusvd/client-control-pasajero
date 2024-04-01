@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Trabajadores = () => {
 
@@ -107,7 +108,7 @@ const Trabajadores = () => {
                                 <td className="px-4 py-2 text-[#0A0A0B]">{trabajador.telefono}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B]">{trabajador.tipo_empresa}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B] gap-2 flex">
-                                    <button className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</button>
+                                    <Link to={`/panel/personal/editar-trabajador/${trabajador.id_trabajador}`} className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</Link>
                                     <button
                                         onClick={() => handleDelete(trabajador)}
                                         className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Eliminar</button>

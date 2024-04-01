@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Nav, { NavItem } from '../../components/Nav'
 import { Link, useNavigate } from 'react-router-dom'
-import { LuArrowBigLeft, LuArrowLeft, LuArrowLeftCircle } from 'react-icons/lu'
+import { LuArrowLeft } from 'react-icons/lu'
 import { toast, Toaster } from 'react-hot-toast'
 
 const FormConductor = () => {

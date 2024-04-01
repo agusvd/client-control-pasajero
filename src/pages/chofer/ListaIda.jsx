@@ -13,6 +13,8 @@ const ListaIda = () => {
     const [checkedItems, setCheckedItems] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
     const [trabajadorSeleccionado, setTrabajadorSeleccionado] = useState(null);
+    const [comentario, setComentario] = useState('');
+
 
     useEffect(() => {
         const obtenerDatos = async () => {
@@ -52,11 +54,6 @@ const ListaIda = () => {
         setCheckedItems({ ...checkedItems, [name]: checked });
     };
 
-    // Manejar el envío de la lista de trabajadores
-    const handleEnviarClick = () => {
-        const trabajadoresSeleccionados = trabajadoresConMismoTransporte.filter(trabajador => checkedItems[trabajador.id_trabajador]);
-        console.log('Trabajadores seleccionados:', trabajadoresSeleccionados);
-    };
 
     // Manejar la apertura del modal y establecer el trabajador seleccionado
     const toggleModal = (trabajador) => {
@@ -70,18 +67,85 @@ const ListaIda = () => {
         window.open(googleMapsUrl, '_blank');
     };
 
+    const id_valor = 1;
+
+    const [valorTaxi, setValorTaxi] = useState('');
+    const [valorVan, setValorVan] = useState('');
+
+    // Obtener valor de Valor Taxi desde la API al cargar el componente
+    useEffect(() => {
+        const obtenerValorTaxi = async () => {
+            try {
+                const res = await axios.get(`http://localhost:3000/api/dashboard/valor-taxi/${id_valor}`);
+                setValorTaxi(res.data[0].valor);
+                console.log
+            } catch (error) {
+                console.error('Error al obtener el valor de Valor Taxi:', error);
+            }
+        };
+        obtenerValorTaxi();
+    }, []);
+
+    // Obtener valor de Valor VAN desde la API al cargar el componente
+    useEffect(() => {
+        const obtenerValorVan = async () => {
+            try {
+                const res = await axios.get(`http://localhost:3000/api/dashboard/valor-van/${id_valor}`);
+                setValorVan(res.data[0].valor);
+            } catch (error) {
+                console.error('Error al obtener el valor de Valor VAN:', error);
+            }
+        };
+        obtenerValorVan();
+    }, []);
+
+    const handleEnviarClick = async () => {
+        try {
+            const fechaActual = new Date().toISOString();
+            // Obtener el valor total del transporte
+            let valorTotalTransporte = 0;
+            if (auto && auto.nombre) {
+                if (auto.nombre.includes('van')) {
+                    valorTotalTransporte = valorVan;
+                } else if (auto.nombre.includes('taxi')) {
+                    valorTotalTransporte = valorTaxi;
+                }
+            }
+    
+            // Filtrar los trabajadores seleccionados
+            const trabajadoresSeleccionados = trabajadoresConMismoTransporte.filter(trabajador => checkedItems[trabajador.id_trabajador]);
+    
+            // Calcular el valor por persona
+            const cantidadPersonasSeleccionadas = trabajadoresSeleccionados.length;
+            const valorPorPersona = cantidadPersonasSeleccionadas > 0 ? valorTotalTransporte / cantidadPersonasSeleccionadas : 0;
+    
+            // Enviar los datos al backend
+            const res = await axios.post('http://localhost:3000/api/dashboard/traslados', {
+                fecha: fechaActual,
+                id_conductor: chofer.id_conductor,
+                trabajadores: trabajadoresSeleccionados.map(trabajador => trabajador.id_trabajador),
+                valor_por_persona: valorPorPersona,
+                tipo_viaje: 'ida',
+                comentario: comentario
+            });
+            console.log('Traslados guardados:', res.data);
+        } catch (error) {
+            console.error('Error al guardar los traslados:', error);
+        }
+    };
+
     return (
         <div className='min-h-screen w-full font-primary bg-white'>
             <NavMobile />
             <div className='p-2 border-b'>
-                <h1 className='text-2xl text-black font-semibold text-center'>Lista de ida a la planta</h1>
+                <h1 className='text-2xl text-black font-semibold text-center'>Lista a planta</h1>
             </div>
             <div>
                 <ul>
                     {trabajadoresConMismoTransporte.map(trabajador => (
                         <li key={trabajador.id_trabajador} className="flex items-center justify-between border-b p-4">
                             <div className="flex items-center gap-2">
-                                <input 
+                                <input
                                     type="checkbox"
                                     id={trabajador.id_trabajador}
                                     name={trabajador.id_trabajador}
@@ -91,10 +155,10 @@ const ListaIda = () => {
                                 />
                                 <div>
                                     <p className="font-bold text-black">{trabajador.nombre_completo}</p>
-                                    <p>{checkedItems[trabajador.id_trabajador] 
-                                        ? 
-                                        <span className='text-green-500'>Planta</span> 
-                                        : 
+                                    <p>{checkedItems[trabajador.id_trabajador]
+                                        ?
+                                        <span className='text-green-500'>Planta</span>
+                                        :
                                         <span className='text-red-500'>Hogar</span>}
                                     </p>
                                 </div>
@@ -107,8 +171,19 @@ const ListaIda = () => {
                         </li>
                     ))}
                 </ul>
+                <div>
+                    <label className='flex flex-col pt-2'>
+                        <textarea
+                            name='comentario'
+                            value={comentario}
+                            placeholder='Escribe un comentario...'
+                            onChange={(e) => setComentario(e.target.value)}
+                            className='p-2 bg-white border border-gray-200 text-[#0A0A0B] w-full'
+                        />
+                    </label>
+                </div>
                 <button onClick={handleEnviarClick}
-                className='bg-[#37B9D8] text-white font-bold p-2 rounded-md w-full mt-4 hover:bg-[#2E8CB3] focus:outline-none'
+                    className='bg-[#37B9D8] text-white font-bold p-2 rounded-md w-full mt-4 hover:bg-[#2E8CB3] focus:outline-none'
                 >Enviar</button>
             </div>
             {modalOpen && (
