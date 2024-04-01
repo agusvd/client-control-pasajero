@@ -108,7 +108,7 @@ const Vehiculos = () => {
                                 <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.patente}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.capacidad}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B] gap-2 flex">
-                                    <Link to={`/panel/personal/editar-trabajador/${vehiculo.id_trabajador}`} className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</Link>
+                                    <Link to={`/panel/personal/editar-vehiculo/${vehiculo.id_vehiculo}`} className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</Link>
                                     <button
                                         onClick={() => handleDelete(vehiculo)}
                                         className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Eliminar</button>

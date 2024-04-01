@@ -1,8 +1,102 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate, useParams} from 'react-router-dom'
+import Nav, { NavItem } from '../../components/Nav'
+import { LuArrowLeft } from 'react-icons/lu'
+import axios from 'axios'
+import { toast, Toaster } from 'react-hot-toast'
 
 const EditarVehiculo = () => {
+
+    const navigate = useNavigate()
+
+    const { id } = useParams()
+    const [nombre, setNombre] = useState('')
+    const [patente, setPatente] = useState('')
+    const [capacidad, setCapacidad] = useState('')
+    
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/dashboard/vehiculos/' + id)
+            .then(res => {
+                setNombre(res.data[0].nombre);
+                setPatente(res.data[0].patente);
+                setCapacidad(res.data[0].capacidad);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        axios
+            .put(`http://localhost:3000/api/dashboard/vehiculos/${id}`, { nombre, patente, capacidad })
+            .then((res) => {
+                toast.success(res.data.message)
+                setTimeout(() => {
+                    navigate('/panel/personal')
+                }, 1500)
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const { status, data } = error.response
+                    if (status === 400) {
+                        toast.error(data.message || 'Error al agregar el vehiculo')
+                    } else {
+                        toast.error('Error de red')
+                    }
+                }
+            })
+    }
+
     return (
-        <div>EditarVehiculo</div>
+        <div className='min-h-screen w-full font-primary bg-white'>
+            <Toaster />
+            <Nav usuario='Agustin Villarroel'>
+                <NavItem link='/panel' text='Panel' />
+                <NavItem link='/panel/personal' text='Personal' />
+                <NavItem link='/panel/opciones' text='Opciones' />
+            </Nav>
+            <div className='p-10 h-full'>
+                <div className='border-b border-[#27272A] pb-4'>
+                    <div className='flex justify-between items-center'>
+                        <h1 className='text-[#0A0A0B] text-4xl font-semibold text-start'>Formulario</h1>
+                        <Link to='/panel/personal' className='p-1 hover:bg-gray-200 transition-colors flex items-center rounded-md'>
+                            <LuArrowLeft className='text-[#0A0A0B]' size={30} />
+                        </Link>
+                    </div>
+                    <p className='text-zinc-400'>Rellena el Formulario para agregar a un nuevo Vehiculor</p>
+                </div>
+                <div className='flex justify-center pt-5 h-full'>
+                    <form onSubmit={handleSubmit} className='flex flex-col gap-4 w-full'>
+                        <div className='flex flex-col gap-3'>
+                            <label className='text-[#0A0A0B]'>Nombre</label>
+                            <input 
+                                type='text' name='nombre' value={nombre} placeholder={nombre}
+                                onChange={(e) => setNombre(e.target.value)}
+                                className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]'
+                            />
+                        </div>
+                        <div className='flex flex-col gap-3'>
+                            <label className='text-[#0A0A0B]'>Patente</label>
+                            <input type='text' name='patente' value={patente} 
+                                onChange={(e) => setPatente(e.target.value)}
+                                className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]'
+                            />
+                        </div>
+                        <div className='flex flex-col gap-3'>
+                            <label className='text-[#0A0A0B]'>Capacidad</label>
+                            <input type='number' name='capacidad' value={capacidad}
+                                onChange={(e) => setCapacidad(e.target.value)}
+                                className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]'
+                            />
+                        </div>
+                        <button className='bg-[#FF5757] text-white p-2 rounded-md w-1/2'>Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     )
 }
 

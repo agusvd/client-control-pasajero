@@ -132,7 +132,7 @@ const Conductores = () => {
                                 <td className="px-4 py-2 text-[#0A0A0B]">{conductor.telefono}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B]">{getVehiculoName(conductor.id_vehiculo)}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B] gap-2 flex">
-                                    <Link to={`/panel/personal/editar-trabajador/${conductor.id_trabajador}`} className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</Link>
+                                    <Link to={`/panel/personal/editar-conductor/${conductor.id_conductor}`} className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</Link>
                                     <button
                                         onClick={() => handleDelete(conductor)}
                                         className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800'>Eliminar</button>
