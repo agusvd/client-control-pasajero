@@ -1,85 +1,87 @@
-import React, { useState } from 'react'
-import CardViaje from './CardViaje'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { toast, Toaster } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const Checklist = () => {
+    const [trabajadorIda, setTrabajadorIda] = useState([]);
+    const [trabajadorVuelta, setTrabajadorVuelta] = useState([]);
+    const [chofer, setChofer] = useState({});
+    const [auto, setAuto] = useState({});
 
-    const [viaje, setViaje] = useState(1)
+    useEffect(() => {
+        const obtenerDatos = async () => {
 
-    const trabajadores = [
-        {
-            id_trabajador: 1,
-            nombre_completo: 'Juan Perez',
-            rut: '12.345.678-9',
-            direccion: 'Manantiales 0143',
-            telefono: '+56912345678',
-            empresa: 'TP',
-            transporte: 'VAN',
-        },
-        {
-            id_trabajador: 2,
-            nombre_completo: 'Vicente Vivar',
-            rut: '12.345.678-9',
-            direccion: 'Calle 2',
-            telefono: '+56912345678',
-            empresa: 'EST',
-            transporte: 'VAN',
-        },
-        {
-            id_trabajador: 3,
-            nombre_completo: 'Agustin Villarroel',
-            rut: '12.345.678-9',
-            direccion: 'Calle 3',
-            telefono: '+56912345678',
-            empresa: 'TP',
-            transporte: 'VAN',
-        },
-        {
-            id_trabajador: 4,
-            nombre_completo: 'Alfonso Villarroel',
-            rut: '12.345.678-9',
-            direccion: 'Calle 4',
-            telefono: '+56912345678',
-            empresa: 'EST',
-            transporte: 'VAN',
+            const resIda = await axios.get('http://localhost:3000/api/chofer/viaje_ida');
+            setTrabajadorIda(resIda.data);
+
+            const resVuelta = await axios.get('http://localhost:3000/api/chofer/viaje_vuelta');
+            setTrabajadorVuelta(resVuelta.data);
+
+
+            const token = localStorage.getItem('token');
+            if (token) {
+                const decoded = jwtDecode(token);
+                const id = decoded.id_conductor;
+                console.log(id)
+                if (id) {
+                    const resChofer = await axios.get(`http://localhost:3000/api/user/users/conductor/${id}`);
+                    setChofer(resChofer.data[0]);
+                    console.log(resChofer.data[0])
+                    if (resChofer.data[0].id_vehiculo) {
+                        const resAuto = await axios.get(`http://localhost:3000/api/dashboard/vehiculos/${resChofer.data[0].id_vehiculo}`);
+                        setAuto(resAuto.data[0]);
+                    }
+                } else {
+                    console.log('No se encontró el id del conductor');
+                }
+            } else {
+                console.log('No hay token');
+            }
         }
-    ]
-
+        obtenerDatos();
+    }, []);
 
     return (
-        <div className='bg-gray-100 h-full'>
-            <div className='flex flex-col justify-center items-center pt-8'>
-                <div className='bg-white flex gap-2 p-1.5 rounded-lg shadow w-full justify-around'>
-                    <button onClick={() => setViaje(1)}
-                        className={`text-xl p-2 rounded-md transition-all ease-in-out duration-300 text-center 
-                        ${viaje === 1 ? 'bg-[#37B9D8] text-white' : 'text-black'}`}>
-                        Traslado planta
-                    </button>
-                    <button onClick={() => setViaje(2)}
-                        className={` text-xl p-2 rounded-md transition-all ease-in-out duration-300 text-center
-                        ${viaje === 2 ? 'bg-[#37B9D8] text-white' : 'text-black'}`}>
-                        Traslado hogar
-                    </button>
-                </div>
-                {viaje === 1 && (
-                    <form
-                        className='transition-all ease-in-out duration-300 grid grid-cols-1 gap-4 w-full pt-8 p-2'>
-                        {trabajadores.map(trabajador => (
-                            <CardViaje
-                                key={trabajador.id_trabajador}
-                                trabajador={trabajador}
-                                onInfoClick={() => handleInfoClick(trabajador)} />
-                        ))}
-                        <button className='bg-[#37B9D8] p-2 rounded-md text-white font-bold w-full text-center transition-all duration-500 ease-in-out'>
-                            Enviar
-                        </button>
-                    </form>
-                )}
-                {viaje === 2 && (
-                    <div
-                        className='transition-all ease-in-out duration-300 pt-2 grid grid-cols-1 gap-3 w-full'>
-
+        <div className='bg-white min-h-screen'>
+            <Toaster />
+            <div className='p-2'>
+                <div className='border rounded-xl'>
+                    <div className='bg-[#37B9D8] p-2 rounded-t-xl'>
+                        <h1 className='text-white text-2xl font-bold text-center'>Bienvenido</h1>
                     </div>
-                )}
+                    <div className='p-2'>
+                        <div className='flex gap-2'>
+                            <div className='flex flex-col gap-2'>
+                                <table>
+                                    <tbody>
+                                        <tr className='flex gap-2'>
+                                            <td className='text-[#0A0A0B] font-semibold'>Nombre:</td>
+                                            <td className='text-[#0A0A0B]'>{chofer.nombre_completo}</td>
+                                        </tr>
+                                        <tr className='flex gap-2'>
+                                            <td className='text-[#0A0A0B] font-semibold'>Vehiculo:</td>
+                                            <td className='text-[#0A0A0B]'>{auto.nombre}</td>
+                                        </tr>
+                                        <tr className='flex gap-2'>
+                                            <td className='text-[#0A0A0B] font-semibold'>Patente:</td>
+                                            <td className='text-[#0A0A0B]'>{auto.patente}</td>
+                                        </tr>
+                                        <tr className='flex gap-2'>
+                                            <td className='text-[#0A0A0B] font-semibold'>Capacidad:</td>
+                                            <td className='text-[#0A0A0B]'>{auto.capacidad} personas</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='flex flex-col gap-4 justify-center items-center pt-4'>
+                <Link to='/inicio/lista-ida' className='text-white p-2 border rounded-xl text-3xl w-[300px] bg-[#37B9D8] text-center'>Lista a planta</Link>
+                <Link to='/inicio/lista-vuelta' className='text-white p-2 border rounded-xl text-3xl w-[300px] bg-[#37B9D8] text-center'>Lista a hogar</Link>
             </div>
         </div>
     );

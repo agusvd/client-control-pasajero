@@ -52,10 +52,8 @@ const Login = () => {
             .catch((error) => {
                 if (error.response) {
                     const { status, data } = error.response;
-                    if (status === 404) {
-                        toast.error(data.message || 'Usuario no encontrado');
-                    } else if (status === 403) {
-                        toast.error(data.message || 'Contraseña incorrecta');
+                    if (status === 401) {
+                        toast.error(data.message);
                     } else {
                         toast.error('Error de red');
                     }
@@ -70,10 +68,10 @@ const Login = () => {
         const token = localStorage.getItem('token')
         if (token) {
             const decoded = jwtDecode(token)
-            if (decoded.admin) {
+            if (decoded.role == 'admin') {
                 navigate('/panel')
             }
-            if (decoded.chofer) {
+            if (decoded.role == 'chofer') {
                 navigate('/inicio')
             }
         }

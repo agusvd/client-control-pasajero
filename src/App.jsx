@@ -9,6 +9,8 @@ import Personal from "./pages/admin/Personal";
 import FormConductor from "./pages/admin/FormConductor";
 import FormTrabajador from "./pages/admin/FormTrabajador";
 import FormVehiculo from "./pages/admin/FormVehiculo";
+import ListaIda from "./pages/chofer/ListaIda";
+import ListaVuelta from "./pages/chofer/ListaVuelta";
 function App() {
 
   return (
@@ -18,6 +20,12 @@ function App() {
         
         <Route path="/inicio" element={<PrivateRoute allowedRoles={['chofer', 'admin']} />}>
           <Route path="/inicio" element={<InicioChofer />} />
+        </Route>
+        <Route path="/inicio/lista-ida" element={<PrivateRoute allowedRoles={['chofer', 'admin']} />}>
+          <Route path="/inicio/lista-ida" element={<ListaIda />} />
+        </Route>
+        <Route path="/inicio/lista-vuelta" element={<PrivateRoute allowedRoles={['chofer', 'admin']} />}>
+          <Route path="/inicio/lista-vuelta" element={<ListaVuelta />} />
         </Route>
         <Route path='/panel' element={<PrivateRoute allowedRoles={['admin']} />}>
           <Route path="/panel" element={<Dashboard />} />
@@ -34,8 +42,6 @@ function App() {
         <Route path='/panel/personal/nuevo-vehiculo' element={<PrivateRoute allowedRoles={['admin']} />}>
           <Route path="/panel/personal/nuevo-vehiculo" element={<FormVehiculo />} />
         </Route>
-
-
         <Route path="*" element={<NotFound />} />
 
       </Routes>

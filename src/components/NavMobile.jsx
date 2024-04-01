@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Logo from '../assets/logo_color.svg'
 import { HiBars3 } from "react-icons/hi2";
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast, Toaster } from 'react-hot-toast';
 
 const NavMobile = () => {
+
     const navigate = useNavigate()
     const handleLogout = (e) => {
         e.preventDefault()
@@ -35,7 +36,7 @@ const NavMobile = () => {
 
 
     return (
-        <div className='bg-white w-full h-16'>
+        <div className='bg-white w-full h-16 border-b border-gray-200'>
             <Toaster />
             <div className='flex justify-between items-center h-full px-4'>
                 <img src={Logo} alt='logo' className='h-full p-1' />
@@ -44,7 +45,7 @@ const NavMobile = () => {
                     <HiBars3 size={40} />
                 </button>
                 <dialog id="menu" className="modal">
-                    <div className="modal-box bg-white font-primary">
+                    <div className="modal-box bg-white font-primary w-full">
                         <form method="dialog">
                             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-black ">✕</button>
                         </form>
@@ -53,10 +54,7 @@ const NavMobile = () => {
                         </div>
                         <div className='flex flex-col justify-center items-center gap-2'>
                             <Link to="/inicio" className='text-black text-2xl'>
-                                Lista
-                            </Link>
-                            <Link className='text-black text-2xl'>
-                                Trabajadores
+                                Inicio
                             </Link>
                             <button onClick={handleLogout} className='text-black text-2xl'>
                                 Cerrar sesion
