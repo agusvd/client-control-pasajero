@@ -108,7 +108,7 @@ const Conductores = () => {
     return (
         <div className='min-h-screen w-full p-4'>
             <Toaster />
-            <div className='border rounded-lg overflow-auto border-gray-200'>
+            <div className='border rounded-lg shadow overflow-auto border-gray-200'>
                 <table className="table-auto min-w-full">
                     <thead className='text-[#0A0A0B] bg-white border-b border-gray-200'>
                         <tr>

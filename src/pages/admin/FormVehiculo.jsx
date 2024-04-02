@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Nav, {NavItem} from '../../components/Nav'
 import { LuArrowLeft } from 'react-icons/lu'
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast'
+import NavBar from '../../components/NavBar'
 
 const FormVehiculo = () => {
 
@@ -40,11 +40,7 @@ const FormVehiculo = () => {
     return (
         <div className='min-h-screen w-full font-primary bg-white'>
             <Toaster />
-            <Nav usuario='Agustin Villarroel'>
-                <NavItem link='/panel' text='Panel' />
-                <NavItem link='/panel/personal' text='Personal' />
-                <NavItem link='/panel/opciones' text='Opciones' />
-            </Nav>
+            <NavBar/>
             <div className='p-10 h-full'>
                 <div className='border-b border-[#27272A] pb-4'>
                     <div className='flex justify-between items-center'>

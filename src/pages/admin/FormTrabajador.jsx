@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Nav, { NavItem } from '../../components/Nav'
 import { Link } from 'react-router-dom'
 import { LuArrowLeft } from 'react-icons/lu'
 import { toast, Toaster } from 'react-hot-toast'
+import NavBar from '../../components/NavBar'
 
 
 const FormTrabajador = () => {
@@ -63,11 +63,7 @@ const FormTrabajador = () => {
     return (
         <div className='min-h-screen w-full font-primary bg-white'>
             <Toaster />
-            <Nav usuario='Agustin Villarroel'>
-                <NavItem link='/panel' text='Panel' />
-                <NavItem link='/panel/personal' text='Personal' />
-                <NavItem link='/panel/opciones' text='Opciones' />
-            </Nav>
+            <NavBar />
             <div className='p-10 h-full'>
                 <div className='border-b border-gray-200 pb-4'>
                     <div className='flex justify-between items-center'>

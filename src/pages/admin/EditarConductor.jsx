@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import Nav, { NavItem } from '../../components/Nav'
 import { LuArrowLeft } from 'react-icons/lu'
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast'
+import NavBar from '../../components/NavBar'
 
 const EditarConductor = () => {
 
@@ -29,7 +29,7 @@ const EditarConductor = () => {
             .catch(error => {
                 console.log(error)
             })
-    
+
     }, [])
 
     //obtener vehiculos
@@ -77,11 +77,7 @@ const EditarConductor = () => {
     return (
         <div className='min-h-screen w-full font-primary bg-white'>
             <Toaster />
-            <Nav usuario='Agustin Villarroel'>
-                <NavItem link='/panel' text='Panel' />
-                <NavItem link='/panel/personal' text='Personal' />
-                <NavItem link='/panel/opciones' text='Opciones' />
-            </Nav>
+            <NavBar />
             <div className='p-10 h-full'>
                 <div className='border-b border-gray-200 pb-4'>
                     <div className='flex justify-between items-center'>
@@ -93,44 +89,44 @@ const EditarConductor = () => {
                     <p className='text-zinc-400'>Rellena el Formulario para agregar a un nuevo Conductor</p>
                 </div>
                 <div className='flex justify-center pt-5 h-full'>
-                    <form onSubmit={handleSubmit}  className='flex flex-col gap-4 w-full'>
+                    <form onSubmit={handleSubmit} className='flex flex-col gap-4 w-full'>
                         <div className='flex flex-col gap-3'>
                             <label className='text-[#0A0A0B]'>Nombre Completo</label>
-                            <input 
-                                type='text' name='nombre_completo' value={nombre_completo} placeholder={nombre_completo} 
-                                onChange={(e) => setNombreCompleto(e.target.value)} 
-                                className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]' 
-                                />
+                            <input
+                                type='text' name='nombre_completo' value={nombre_completo} placeholder={nombre_completo}
+                                onChange={(e) => setNombreCompleto(e.target.value)}
+                                className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]'
+                            />
                         </div>
                         <div className='flex flex-col gap-3'>
                             <label className='text-[#0A0A0B]'>Usuario</label>
-                            <input 
-                                type='text' name='usuario' value={usuario} placeholder={usuario} 
+                            <input
+                                type='text' name='usuario' value={usuario} placeholder={usuario}
                                 onChange={(e) => setUsuario(e.target.value)}
                                 className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]'
-                                />
+                            />
                         </div>
                         <div className='flex flex-col gap-3'>
                             <label className='text-[#0A0A0B]'>Contraseña</label>
-                            <input 
+                            <input
                                 type='password' name='password' value={password} placeholder={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]'
-                                />
+                            />
                         </div>
                         <div className='flex flex-col gap-3'>
                             <label className='text-[#0A0A0B]'>Telefono</label>
-                            <input 
+                            <input
                                 type='text' name='telefono' value={telefono} placeholder={telefono}
                                 onChange={(e) => setTelefono(e.target.value)}
                                 className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]'
-                                />
+                            />
                         </div>
                         <div className='flex flex-col gap-3'>
                             <label className='text-[#0A0A0B]'>Vehiculo</label>
                             <select type='text' name='vehiculo' value={id_vehiculo}
                                 onChange={(e) => setIdVehiculo(e.target.value)}
-                            className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]'>
+                                className='p-2 rounded-md bg-transparent border border-gray-200 sm:w-1/2 text-[#0A0A0B]'>
                                 <option value=''>Seleccionar</option>
                                 {vehiculos.map((vehiculo) => (
                                     <option key={vehiculo.id_vehiculo} value={vehiculo.id_vehiculo}>{vehiculo.nombre}</option>

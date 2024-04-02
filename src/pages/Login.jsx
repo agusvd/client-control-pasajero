@@ -5,7 +5,6 @@ import { toast, Toaster } from 'react-hot-toast';
 import Logo from '../assets/logo_colour.svg'
 import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
-import Menu, { MenuItem } from '../components/Menu';
 
 const Login = () => {
     // hook para redireccionar

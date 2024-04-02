@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Menu, { MenuItem } from '../../components/Menu';
-import Nav, { NavItem } from '../../components/Nav';
 import Trabajadores from '../../components/Trabajadores';
 import Conductores from '../../components/Conductores';
 import { LuPlusSquare } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 import Vehiculos from '../../components/Vehiculos';
+import NavBar from '../../components/NavBar';
 
 
 const Personal = () => {
@@ -18,12 +18,7 @@ const Personal = () => {
 
     return (
         <div className='min-h-screen w-full font-primary bg-white'>
-            <Nav usuario='Agustin Villarroel'>
-                <NavItem link='/panel' text='Panel' />
-                <NavItem link='/panel/personal' text='Personal' />
-                <NavItem link='/panel/reportes' text='Reportes' />
-                <NavItem link='/panel/opciones' text='Opciones' />
-            </Nav>
+            <NavBar/>
             <div className='pr-4 items-center flex justify-between'>
                 <Menu>
                     <MenuItem text='Trabajadores' number={1} changePage={changePage} />

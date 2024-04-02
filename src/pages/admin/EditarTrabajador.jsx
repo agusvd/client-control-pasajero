@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Nav, {NavItem} from '../../components/Nav'
-import {Link, useParams, useNavigate} from 'react-router-dom'
-import {LuArrowLeft} from 'react-icons/lu'
-import {toast, Toaster} from 'react-hot-toast'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import { LuArrowLeft } from 'react-icons/lu'
+import { toast, Toaster } from 'react-hot-toast'
+import NavBar from '../../components/NavBar'
 
 const EditarTrabajador = () => {
 
-    const {id} = useParams()
+    const { id } = useParams()
     const navigate = useNavigate()
     const [vehiculos, setVehiculos] = useState([])
     const [nombre_completo, setNombreCompleto] = useState('')
@@ -64,7 +64,7 @@ const EditarTrabajador = () => {
             })
             .catch(error => {
                 if (error.response) {
-                    const {status, data} = error.response
+                    const { status, data } = error.response
                     if (status === 400) {
                         toast.error(data.message || 'Error al editar el trabajador')
                     } else {
@@ -77,11 +77,7 @@ const EditarTrabajador = () => {
     return (
         <div className='min-h-screen w-full font-primary bg-white'>
             <Toaster />
-            <Nav usuario='Agustin Villarroel'>
-                <NavItem link='/panel' text='Panel' />
-                <NavItem link='/panel/personal' text='Personal' />
-                <NavItem link='/panel/opciones' text='Opciones' />
-            </Nav>
+            <NavBar />
             <div className='p-10 h-full'>
                 <div className='border-b border-gray-200 pb-4'>
                     <div className='flex justify-between items-center'>
@@ -97,31 +93,31 @@ const EditarTrabajador = () => {
                         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4'>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Nombre Completo</label>
-                                <input 
+                                <input
                                     type='text' name='nombre_completo' placeholder={nombre_completo} value={nombre_completo}
                                     onChange={(e) => setNombreCompleto(e.target.value)}
                                     className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
-                                    />
+                                />
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Direccion</label>
-                                <input 
+                                <input
                                     type='text' name='direccion' placeholder={direccion} value={direccion}
                                     onChange={(e) => setDireccion(e.target.value)}
                                     className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
-                                    />
+                                />
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Telefono</label>
-                                <input 
+                                <input
                                     type='text' name='telefono' placeholder={telefono} value={telefono}
                                     onChange={(e) => setTelefono(e.target.value)}
                                     className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
-                                    />
+                                />
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Transporte</label>
-                                <select 
+                                <select
                                     name='transporte' value={transporte}
                                     onChange={(e) => setTransporte(e.target.value)}
                                     className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
@@ -134,7 +130,7 @@ const EditarTrabajador = () => {
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Tipo de Empresa</label>
-                                <select 
+                                <select
                                     name='tipo_empresa' value={tipo_empresa}
                                     onChange={(e) => setTipoEmpresa(e.target.value)}
                                     className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
@@ -146,7 +142,7 @@ const EditarTrabajador = () => {
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Estado</label>
-                                <select 
+                                <select
                                     name='estado' value={estado}
                                     onChange={(e) => setEstado(e.target.value)}
                                     className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
@@ -158,8 +154,8 @@ const EditarTrabajador = () => {
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <label className='text-[#0A0A0B]'>Viaje Ida</label>
-                                <select 
-                                    name='viaje_ida' value={viaja_ida} 
+                                <select
+                                    name='viaje_ida' value={viaja_ida}
                                     onChange={(e) => setViajaIda(e.target.value)}
                                     className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'
                                 >
@@ -170,7 +166,7 @@ const EditarTrabajador = () => {
                             </div>
                             <div className='flex flex-col gap-2'>
                                 <label className='text-[#0A0A0B]'>Viaje Vuelta</label>
-                                <select 
+                                <select
                                     name='viaje_vuelta' value={viaja_vuelta}
                                     onChange={(e) => setViajaVuelta(e.target.value)}
                                     className='p-2 rounded-md bg-transparent border border-gray-200 text-[#0A0A0B]'

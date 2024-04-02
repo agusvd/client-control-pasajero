@@ -63,7 +63,7 @@ export default function Nav({ children }) {
     };
 
     return (
-        <nav className="flex gap-2 bg-white p-2 w-full border-b border-gray-20">
+        <nav className="flex gap-2 bg-white p-2 w-full border-b border-gray-300">
             <Toaster />
             <div className="flex gap-2 justify-between items-center w-full">
                 <div className="flex items-center gap-2">
@@ -99,7 +99,7 @@ export function NavItem({ link, text }) {
 
     return (
         <Link to={link}
-            className={`p-2 duration-300 ease-in-out transition-all ${isActive ? 'text-[#0A0A0B]' : 'hover:text-gray-500 text-gray-200'}`}>
+            className={`p-2 duration-300 ease-in-out transition-all ${isActive ? 'text-[#0A0A0B]' : 'hover:text-gray-500 text-gray-400'}`}>
             {text}
         </Link>
     )
