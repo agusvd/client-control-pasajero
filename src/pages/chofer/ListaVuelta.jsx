@@ -3,10 +3,13 @@ import axios from 'axios';
 import NavMobile from '../../components/NavMobile';
 import { jwtDecode } from 'jwt-decode';
 import { LuMessageSquare, LuInfo } from "react-icons/lu";
+import { toast, Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 import maps from '../../assets/maps.png';
 
 const ListaVuelta = () => {
+    const navigate = useNavigate();
     const [trabajadoresConMismoTransporte, setTrabajadoresConMismoTransporte] = useState([]);
     const [chofer, setChofer] = useState({});
     const [auto, setAuto] = useState({});
@@ -76,48 +79,79 @@ const ListaVuelta = () => {
             [trabajadorId]: value
         }));
     };
-
-    const handleEnviarClick = async () => {
-        try {
-            const fechaActual = new Date().toISOString();
-            const asistencias = {};
-            const comentarios = {};
-            trabajadoresConMismoTransporte.forEach(trabajador => {
-                if (checkedItems[trabajador.id_trabajador]) {
-                    asistencias[trabajador.id_trabajador] = 'presente';
-                    comentarios[trabajador.id_trabajador] = comentariosPorTrabajador[trabajador.id_trabajador] || '';
-                } else {
-                    asistencias[trabajador.id_trabajador] = 'ausente';
-                    comentarios[trabajador.id_trabajador] = comentariosPorTrabajador[trabajador.id_trabajador] || '';
-                }
-            });
-
-            const values = {
-                fecha: fechaActual,
-                conductor: chofer.nombre_completo,
-                vehiculo: auto.nombre,
-                tipo_viaje: 'vuelta',
-                trabajadores: trabajadoresConMismoTransporte.map(trabajador => trabajador.id_trabajador),
-                asistencias,
-                comentarios
+    const handleEnviarClick = () => {
+        const fechaActual = new Date().toISOString();
+        const asistencias = {};
+        const comentarios = {};
+        trabajadoresConMismoTransporte.forEach(trabajador => {
+            if (checkedItems[trabajador.id_trabajador]) {
+                asistencias[trabajador.id_trabajador] = 'presente';
+                comentarios[trabajador.id_trabajador] = comentariosPorTrabajador[trabajador.id_trabajador] || '';
+            } else {
+                asistencias[trabajador.id_trabajador] = 'ausente';
+                comentarios[trabajador.id_trabajador] = comentariosPorTrabajador[trabajador.id_trabajador] || '';
             }
-
-            console.log('Datos a enviar:', values);
-    
-            await axios.post('http://localhost:3000/api/dashboard/traslados', {
-                ...values
-            });
-            
-
+        });
+        const values = {
+            fecha: fechaActual,
+            conductor: chofer.nombre_completo,
+            vehiculo: auto.nombre,
+            tipo_viaje: 'vuelta',
+            trabajadores: trabajadoresConMismoTransporte.map(trabajador => trabajador.id_trabajador),
+            asistencias,
+            comentarios
+        }
+        console.log('Datos a enviar:', values);
+        try {
+            axios
+                .post('http://localhost:3000/api/dashboard/traslados', {...values})
+                .then((res) => {
+                    toast.success(res.data.message || 'Asistencia enviada correctamente');
+                    setTimeout(() => {
+                        navigate('/inicio')
+                    }, 1500)
+                })
+                .catch((error) => {
+                    toast.error('Error al enviar los datos');
+                })
             console.log('Datos enviados correctamente');
         } catch (error) {
             console.error('Error al enviar los datos:', error);
         }
     }
-    
+
+    // al apretar el boton de enviar se debe mostrar un modal de confirmacion
+    const confirmarEnviar = () => {
+        toast((t) => (
+            <div className='flex gap-2 bg-[#0A0A0B] w-full'>
+                <p className='text-wrap'>¿Seguro que quiere enviar la asistencia?</p>
+                <button
+                    onClick={handleEnviarClick}
+                    className='border-[#27272a] border text-[#FAFAFA] rounded-lg hover:bg-[#FAFAFA] hover:text-[#0A0A0B] transition-colors text-sm px-3 py-1.5'>
+                    Sí
+                </button>
+                <button
+                    onClick={() => toast.dismiss(t.id)}
+                    className='border-[#27272a] border text-[#FAFAFA] p-2 rounded-lg hover:bg-[#FAFAFA] hover:text-[#0A0A0B] transition-colors text-sm px-3 py-1.5'>
+                    No
+                </button>
+            </div>
+        ), {
+            icon: '🤔',
+            style: {
+                border: '1px solid #27272A',
+                borderRadius: '30px',
+                padding: '16px',
+                color: '#FAFAFA',
+                background: '#0A0A0B',
+            },
+            duration: 10000,
+        },);
+    }
 
     return (
         <div className='min-h-screen w-full font-primary bg-gray-50'>
+            <Toaster />
             <NavMobile />
             <div>
                 <div className='p-2'>
@@ -167,8 +201,8 @@ const ListaVuelta = () => {
                         </li>
                     ))}
                 </ul>
-                <div className='bottom-0 absolute w-full p-2'>
-                    <button onClick={handleEnviarClick}
+                <div className='p-2 pt-6'>
+                    <button onClick={confirmarEnviar}
                         className='bg-[#37B9D8] text-white font-bold p-2 rounded-md w-full mt-4 hover:bg-[#2E8CB3] focus:outline-none'>
                         Enviar
                     </button>

@@ -26,9 +26,9 @@ const Personal = () => {
                     <MenuItem text='Vehiculos' number={3} changePage={changePage} />
                 </Menu>
                 <div className="dropdown dropdown-bottom dropdown-end hover:bg-none">
-                    <button className="p-2 rounded-lg transition-colors text-white flex items-center gap-2 bg-black hover:bg-zinc-800 shadow">
+                    <div role="button" tabindex="0" className="p-2 rounded-lg transition-colors text-white flex items-center gap-2 bg-black hover:bg-zinc-800 shadow">
                         <LuPlusSquare size={25} />
-                    </button>
+                    </div>
                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-white gap-2 border border-gray-200">
                         <Link to='/panel/personal/nuevo-trabajador'
                             className="text-[#0A0A0B] p-1 hover:bg-[#F4F4F5] rounded-md transition-colors">Nuevo Trabajador

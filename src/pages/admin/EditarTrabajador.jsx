@@ -60,7 +60,9 @@ const EditarTrabajador = () => {
         })
             .then(res => {
                 toast.success(res.data.message)
-                navigate('/panel/personal')
+                setTimeout(() => {
+                    navigate('/panel/personal')
+                }, 1500)
             })
             .catch(error => {
                 if (error.response) {

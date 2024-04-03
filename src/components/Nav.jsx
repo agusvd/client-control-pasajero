@@ -74,9 +74,9 @@ export default function Nav({ children }) {
                 </div>
                 <div>
                     <div className="dropdown dropdown-bottom dropdown-end hover:bg-none">
-                        <button className="p-2 rounded-lg duration-300 ease-in-out transition-all">
+                        <div role="button" tabindex="0" className="p-2 rounded-lg duration-300 ease-in-out transition-all">
                             <img src={`https://ui-avatars.com/api/?name=${nombre_completo}`} alt="profile" className="w-10 rounded-full" />
-                        </button>
+                        </div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-white gap-2 border border-gray-200">
                             <div className="border-b border-gray-200 p-1">
                                 <h4 className="font-light text-zinc-700 first-letter:uppercase">{nombre_completo}</h4>

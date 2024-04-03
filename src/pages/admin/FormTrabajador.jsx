@@ -46,6 +46,9 @@ const FormTrabajador = () => {
             .post('http://localhost:3000/api/dashboard/trabajadores', { ...values })
             .then((res) => {
                 toast.success(res.data.message)
+                setTimeout(() => {
+                    navigate('/panel/personal')
+                }, 1500)
             })
             .catch((error) => {
                 if (error.response) {

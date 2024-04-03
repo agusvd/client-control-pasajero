@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Menu, { MenuItem } from '../../components/Menu';
-import ReporteGeneral from '../../components/ReporteGeneral';
 import NavBar from '../../components/NavBar';
+import DateRangePicker from '../../components/DateRangePicker';
+import ReporteTraslados from '../../components/ReporteTraslados';
+import ReportesAsistencia from '../../components/ReportesAsistencia';
 
 const Reportes = () => {
     const [traslados, setTraslados] = useState([]);
     const [trabajadores, setTrabajadores] = useState([]);
-    const [conductores, setConductores] = useState([]);
+    const [asistencias, setAsistencias] = useState([]);
 
+    // Obtener los traslados
     useEffect(() => {
         const fetchTraslados = async () => {
             try {
@@ -21,7 +24,9 @@ const Reportes = () => {
 
         fetchTraslados();
     }, []);
+    console.log(traslados);
 
+    // Obtener los trabajadores
     useEffect(() => {
         const fetchTrabajadores = async () => {
             try {
@@ -36,19 +41,13 @@ const Reportes = () => {
     }, []);
 
     // Obtener los nombres de los trabajadores asociados a cada traslado
-    const getTrabajadorNames = (id_trabajadores) => {
-        const nombres = id_trabajadores.map(id => {
-            const trabajador = trabajadores.find(t => t.id_trabajador === id);
-            return trabajador ? trabajador.nombre_completo : 'Trabajador no encontrado';
-        });
-        return nombres.join(', ');
+    const nombreTrabajador = (id_trabajador) => {
+        const trabajador = trabajadores.find(t => t.id_trabajador === id_trabajador);
+        return trabajador ? trabajador.nombre_completo : 'Trabajador no encontrado';
     };
 
-    // Formatear la fecha
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', { timeZone: 'UTC' });
-    };
+
+
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -61,17 +60,16 @@ const Reportes = () => {
             <NavBar />
             <div className='flex w-full justify-between'>
                 <Menu>
-                    <MenuItem text='General' number={1} changePage={changePage} />
-                    <MenuItem text='Detallado' number={2} changePage={changePage} />
+                    <MenuItem text='Asistencias' number={1} changePage={changePage} />
+                    <MenuItem text='Traslados' number={2} changePage={changePage} />
                 </Menu>
                 <div className='p-4'>
-                    <button className='bg-black text-white font-semibold px-2 py-1 rounded-md'>
-                        Descargar
-                    </button>
+                    <DateRangePicker />
                 </div>
 
             </div>
-            {currentPage === 1 && (<ReporteGeneral />)}
+            {currentPage === 1 && (<ReportesAsistencia />)}
+            {currentPage === 2 && (<ReporteTraslados traslados={traslados} nombreTrabajador={nombreTrabajador} />)}
         </div>
     );
 };
