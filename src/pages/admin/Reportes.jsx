@@ -9,7 +9,7 @@ import ReportesAsistencia from '../../components/ReportesAsistencia';
 const Reportes = () => {
     const [traslados, setTraslados] = useState([]);
     const [trabajadores, setTrabajadores] = useState([]);
-    const [asistencias, setAsistencias] = useState([]);
+
 
     // Obtener los traslados
     useEffect(() => {
