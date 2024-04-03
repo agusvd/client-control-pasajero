@@ -86,6 +86,7 @@ const Trabajadores = () => {
                 <table className="table-auto min-w-full">
                     <thead className='text-[#0A0A0B] bg-white border-b border-gray-200'>
                         <tr>
+                            <th className="px-4 py-2 text-start"></th>
                             <th className="px-4 py-2 text-start">Nombre</th>
                             <th className="px-4 py-2 text-start">Direccion</th>
                             <th className="px-4 py-2 text-start">Telefono</th>
@@ -99,10 +100,11 @@ const Trabajadores = () => {
                                 <td colSpan='5' className='text-center text-[#0A0A0B]'>No hay trabajadores</td>
                             </tr>
                         )}
-                        {trabajadores.map((trabajador) => (
+                        {trabajadores.map((trabajador, index) => (
                             <tr
                                 key={trabajador.id_trabajador}
                                 className='hover:bg-[#F4F4F5]  transition-colors'>
+                                <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B]">{trabajador.nombre_completo}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B]">{trabajador.direccion}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B]">{trabajador.telefono}</td>

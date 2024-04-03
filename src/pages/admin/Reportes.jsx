@@ -46,7 +46,7 @@ const Reportes = () => {
         return trabajador ? trabajador.nombre_completo : 'Trabajador no encontrado';
     };
 
-
+    
 
 
     const [currentPage, setCurrentPage] = useState(1);

@@ -79,9 +79,9 @@ const Checklist = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex flex-col gap-4 justify-center items-center pt-4'>
-                <Link to='/inicio/lista-ida' className='text-white p-2 border rounded-xl text-3xl w-[300px] bg-[#37B9D8] text-center'>Lista a planta</Link>
-                <Link to='/inicio/lista-vuelta' className='text-white p-2 border rounded-xl text-3xl w-[300px] bg-[#37B9D8] text-center'>Lista a hogar</Link>
+            <div className='flex flex-col gap-4 justify-center items-center pt-4 px-2'>
+                <Link to='/inicio/lista-ida' className='bg-[#37B9D8] text-white p-2 w-full text-center rounded-xl text-2xl'>Asistencia IDA - Planta</Link>
+                <Link to='/inicio/lista-vuelta' className='bg-[#37B9D8] text-white p-2 w-full text-center rounded-xl text-2xl'>Asistencia VUELTA - Hogar</Link>
             </div>
         </div>
     );

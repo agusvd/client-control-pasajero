@@ -79,7 +79,9 @@ const ListaVuelta = () => {
             [trabajadorId]: value
         }));
     };
-    const handleEnviarClick = () => {
+
+    // Manejar el envío de la asistencia
+    const handleEnviarClick = async () => {
         const fechaActual = new Date().toISOString();
         const asistencias = {};
         const comentarios = {};
@@ -103,22 +105,27 @@ const ListaVuelta = () => {
         }
         console.log('Datos a enviar:', values);
         try {
-            axios
-                .post('http://localhost:3000/api/dashboard/traslados', {...values})
-                .then((res) => {
-                    toast.success(res.data.message || 'Asistencia enviada correctamente');
-                    setTimeout(() => {
-                        navigate('/inicio')
-                    }, 1500)
-                })
-                .catch((error) => {
-                    toast.error('Error al enviar los datos');
-                })
+            const res = await axios.post('http://localhost:3000/api/dashboard/traslados', values);
+            toast.success(res.data.message || 'Asistencia enviada correctamente');
+            setTimeout(() => {
+                navigate('/inicio')
+            }, 1500)
             console.log('Datos enviados correctamente');
         } catch (error) {
             console.error('Error al enviar los datos:', error);
+            if (error.response) {
+                // Error en la respuesta del servidor
+                toast.error(error.response.data.message || 'Error al enviar los datos');
+            } else if (error.request) {
+                // No se recibió respuesta del servidor
+                toast.error('No se recibió respuesta del servidor');
+            } else {
+                // Error durante la solicitud
+                toast.error('Error al enviar la solicitud');
+            }
         }
     }
+
 
     // al apretar el boton de enviar se debe mostrar un modal de confirmacion
     const confirmarEnviar = () => {
@@ -150,7 +157,7 @@ const ListaVuelta = () => {
     }
 
     return (
-        <div className='min-h-screen w-full font-primary bg-gray-50'>
+        <div className='min-h-screen w-full font-primary bg-white'>
             <Toaster />
             <NavMobile />
             <div>
@@ -159,7 +166,7 @@ const ListaVuelta = () => {
                 </div>
                 <ul className='flex flex-col gap-2 p-2'>
                     {trabajadoresConMismoTransporte.map(trabajador => (
-                        <li key={trabajador.id_trabajador} className="flex flex-col gap-4 items-center justify-between shadow pl-4 pr-4 py-2 bg-white rounded-xl">
+                        <li key={trabajador.id_trabajador} className="flex flex-col gap-4 items-center justify-between pl-4 pr-4 py-2 bg-white rounded-xl">
                             <div className="flex items-center gap-2 justify-between w-full">
                                 <div className='flex items-center'>
                                     <input
@@ -168,7 +175,7 @@ const ListaVuelta = () => {
                                         name={trabajador.id_trabajador}
                                         checked={checkedItems[trabajador.id_trabajador] || false}
                                         onChange={handleCheckboxChange}
-                                        className="checkbox checkbox-lg bg-white checked:border-green-500 [--chkbg:theme(colors.green.500)] [--chkfg:white]"
+                                        className="checkbox checkbox-lg bg-red-300 checked:border-green-500 [--chkbg:theme(colors.green.500)] [--chkfg:white]"
                                     />
                                 </div>
                                 <div className='flex items-center justify-between w-full'>
@@ -176,9 +183,9 @@ const ListaVuelta = () => {
                                         <p className="font-bold text-black">{trabajador.nombre_completo}</p>
                                         <p>{checkedItems[trabajador.id_trabajador]
                                             ?
-                                            <span className='text-green-500'>Planta</span>
+                                            <span className='text-green-500'>Hogar</span>
                                             :
-                                            <span className='text-red-500'>Hogar</span>}
+                                            <span className='text-red-500'>Planta</span>}
                                         </p>
                                     </div>
                                     <div className='flex flex-col gap-2'>

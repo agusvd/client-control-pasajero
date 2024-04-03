@@ -52,11 +52,11 @@ const NavMobile = () => {
                         <div className='flex justify-center items-center pb-5'>
                             <h3 className="font-bold text-3xl text-black">Menu</h3>
                         </div>
-                        <div className='flex flex-col justify-center items-center gap-2'>
-                            <Link to="/inicio" className='text-black text-2xl'>
+                        <div className='flex flex-col justify-center items-center gap-4'>
+                            <Link to="/inicio" className='bg-[#37B9D8] text-white p-2 w-full text-center rounded-xl text-2xl'>
                                 Inicio
                             </Link>
-                            <button onClick={handleLogout} className='text-black text-2xl'>
+                            <button onClick={handleLogout} className='bg-[#37B9D8] text-white p-2 w-full text-center rounded-xl text-2xl'>
                                 Cerrar sesion
                             </button>
                         </div>

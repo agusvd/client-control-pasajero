@@ -2,29 +2,75 @@ import React, { useState, useEffect } from 'react';
 import { LuSearch } from "react-icons/lu";
 import { toast, Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import Search, { SearchItem } from './Search';
+import DatePicker, { DatePickerItem } from './DatePicker';
 
-const ReporteTraslados = ({ traslados, nombreTrabajador }) => {
+const ReporteTraslados = () => {
+    const [traslados, setTraslados] = useState([]);
+    const [trabajadores, setTrabajadores] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Obtener los traslados
+    useEffect(() => {
+        const fetchTraslados = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/api/dashboard/traslados');
+                setTraslados(response.data);
+            } catch (error) {
+                console.error('Error al obtener los traslados:', error);
+            }
+        };
+
+        fetchTraslados();
+    }, []);
+
+    // Obtener los trabajadores
+    useEffect(() => {
+        const fetchTrabajadores = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/api/dashboard/trabajadores');
+                setTrabajadores(response.data);
+            } catch (error) {
+                console.error('Error al obtener los trabajadores:', error);
+            }
+        };
+
+        fetchTrabajadores();
+    }, []);
+
+    // Obtener los nombres de los trabajadores asociados a cada traslado
+    const nombreTrabajador = (id_trabajador) => {
+        const trabajador = trabajadores.find(t => t.id_trabajador === id_trabajador);
+        return trabajador ? trabajador.nombre_completo : 'Trabajador no encontrado';
+    };
+
+    // Función para filtrar los traslados por nombre del vehículo
+    const filterByVehicleName = (traslado) => {
+        return traslado.vehiculo.toLowerCase().includes(searchTerm.toLowerCase());
+    };
+
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedAsistencia, setSelectedAsistencia] = useState(null);
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('es-ES', { timeZone: 'UTC' });
     };
+
     const openModal = (asistencia) => {
-        console.log('click')
         setSelectedAsistencia(asistencia);
         setModalVisible(true);
     };
+
     const closeModal = () => {
         setSelectedAsistencia(null);
         setModalVisible(false);
     };
 
-    // funcion para mostrar el valor en entero sin decimales
     const valorEntero = (valor) => {
         return Math.trunc(valor);
-    }
-    // confirmar eliminacion usando axios, useEffect y toast de react-hot-toast
+    };
+
     const confirmDelete = async (id_traslado) => {
         if (window.confirm('¿Estás seguro de eliminar este traslado?')) {
             try {
@@ -38,27 +84,26 @@ const ReporteTraslados = ({ traslados, nombreTrabajador }) => {
         }
     };
 
-
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
 
     return (
         <div className='pr-4 pl-4 flex flex-col gap-4 font-primary'>
             <Toaster />
             <div className='p-1 flex justify-between gap-4'>
-                <div className='border border-gray-200 shadow bg-white p-2 rounded-xl w-1/3 flex gap-2 items-center'>
-                    <LuSearch size={25} className='text-[#0A0A0B]' />
-                    <input type='text' className='bg-white text-[#0A0A0B] outline-none text-sm' placeholder='Buscar...' />
-                </div>
-                <div className='border border-gray-200 shadow bg-white p-2 rounded-xl flex gap-2 justify-around items-center'>
-                    <input type='date' className='bg-white text-[#0A0A0B] outline-none' />
-                    <button className='bg-black text-white font-semibold px-2 py-1 rounded-md'>
-                        Buscar
-                    </button>
-                </div>
+                <Search >
+                    <SearchItem text='Buscar por vehiculo' onChange={handleSearchChange} />
+                </Search>
+                <DatePicker>
+                    <DatePickerItem />
+                </DatePicker>
             </div>
             <div className='border rounded-xl border-gray-200 shadow-md w-full p-2'>
                 <table className='table-auto w-full rounded-xl'>
-                    <thead>
+                    <thead className='text-[#0A0A0B] bg-white border-b border-gray-200'>
                         <tr>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'></th>
                             <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Fecha</th>
                             <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Conductor</th>
                             <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Vehiculo</th>
@@ -69,8 +114,9 @@ const ReporteTraslados = ({ traslados, nombreTrabajador }) => {
                         </tr>
                     </thead>
                     <tbody className='divide-y'>
-                        {traslados.map((traslado, index) => (
+                        {traslados.filter(filterByVehicleName).map((traslado, index) => (
                             <tr key={index} className='text-[#0A0A0B] hover:bg-gray-50 transition-colors'>
+                                <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
                                 <td className='px-4 py-2'>{formatDate(traslado.fecha)}</td>
                                 <td className='px-4 py-2'>{traslado.nombre_conductor}</td>
                                 <td className='px-4 py-2'>{traslado.vehiculo}</td>
@@ -90,7 +136,8 @@ const ReporteTraslados = ({ traslados, nombreTrabajador }) => {
                                     </button>
                                     <button
                                         onClick={() => confirmDelete(traslado.id_traslado)}
-                                        className="bg-black text-white transition-colors p-2 rounded-xl">
+                                        className="bg-black text-white transition-colors p-2 rounded-xl"
+                                    >
                                         Eliminar
                                     </button>
                                 </td>

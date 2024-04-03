@@ -81,8 +81,8 @@ const ListaIda = () => {
         }));
     };
 
-
-    const handleEnviarClick = () => {
+    // Manejar el envío de la asistencia
+    const handleEnviarClick = async () => {
         const fechaActual = new Date().toISOString();
         const asistencias = {};
         const comentarios = {};
@@ -106,22 +106,27 @@ const ListaIda = () => {
         }
         console.log('Datos a enviar:', values);
         try {
-            axios
-                .post('http://localhost:3000/api/dashboard/traslados', {...values})
-                .then((res) => {
-                    toast.success(res.data.message || 'Asistencia enviada correctamente');
-                    setTimeout(() => {
-                        navigate('/inicio')
-                    }, 1500)
-                })
-                .catch((error) => {
-                    toast.error('Error al enviar los datos');
-                })
+            const res = await axios.post('http://localhost:3000/api/dashboard/traslados', values);
+            toast.success(res.data.message || 'Asistencia enviada correctamente');
+            setTimeout(() => {
+                navigate('/inicio');
+            }, 1500);
             console.log('Datos enviados correctamente');
         } catch (error) {
             console.error('Error al enviar los datos:', error);
+            if (error.response) {
+                // Error en la respuesta del servidor
+                toast.error(error.response.data.message || 'Error al enviar los datos');
+            } else if (error.request) {
+                // No se recibió respuesta del servidor
+                toast.error('No se recibió respuesta del servidor');
+            } else {
+                // Error durante la solicitud
+                toast.error('Error al enviar la solicitud');
+            }
         }
     }
+
 
     // al apretar el boton de enviar se debe mostrar un modal de confirmacion
     const confirmarEnviar = () => {
@@ -155,7 +160,7 @@ const ListaIda = () => {
 
     return (
         <div className='min-h-screen w-full font-primary bg-gray-50 '>
-            <Toaster  />
+            <Toaster />
             <NavMobile />
             <div>
                 <div className='p-2'>

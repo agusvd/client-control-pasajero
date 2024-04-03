@@ -6,6 +6,7 @@ import { LuPlusSquare } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 import Vehiculos from '../../components/Vehiculos';
 import NavBar from '../../components/NavBar';
+import Lista from '../../components/Lista';
 
 
 const Personal = () => {
@@ -21,9 +22,10 @@ const Personal = () => {
             <NavBar/>
             <div className='pr-4 items-center flex justify-between'>
                 <Menu>
-                    <MenuItem text='Trabajadores' number={1} changePage={changePage} />
-                    <MenuItem text='Conductores' number={2} changePage={changePage} />
-                    <MenuItem text='Vehiculos' number={3} changePage={changePage} />
+                    <MenuItem text='Vista previa' number={1} changePage={changePage} />
+                    <MenuItem text='Trabajadores' number={2} changePage={changePage} />
+                    <MenuItem text='Conductores' number={3} changePage={changePage} />
+                    <MenuItem text='Vehiculos' number={4} changePage={changePage} />
                 </Menu>
                 <div className="dropdown dropdown-bottom dropdown-end hover:bg-none">
                     <div role="button" tabindex="0" className="p-2 rounded-lg transition-colors text-white flex items-center gap-2 bg-black hover:bg-zinc-800 shadow">
@@ -44,9 +46,10 @@ const Personal = () => {
                 </div>
             </div>
 
-            {currentPage === 1 && <Trabajadores />}
-            {currentPage === 2 && <Conductores />}
-            {currentPage === 3 && <Vehiculos  />}
+            {currentPage === 1 && <Lista />}
+            {currentPage === 2 && <Trabajadores />}
+            {currentPage === 3 && <Conductores />}
+            {currentPage === 4 && <Vehiculos  />}
         </div>
     )
 }

@@ -27,7 +27,7 @@ export function MenuItem({ text, number, changePage }) {
     return (
         <button
             onClick={handleClick}
-            className={`p-2 text-[#0A0A0B] rounded-lg transition-all ease-in-out duration-300 text-sm text-center font-semibold ${activeItem === number ? 'bg-white shadow' : 'text-gray-300'}`}>
+            className={`p-2 text-[#0A0A0B] rounded-lg transition-all ease-in-out duration-300 text-sm text-center font-semibold text-nowrap ${activeItem === number ? 'bg-white shadow' : 'text-gray-300'}`}>
             {text}
         </button>
     );

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
+import { LuDownload } from "react-icons/lu";
+
 
 const DateRangePicker = () => {
     const [startDate, setStartDate] = useState(null);
@@ -31,7 +33,7 @@ const DateRangePicker = () => {
                 onClick={handleDownload}
                 disabled={!startDate || !endDate}
             >
-                Descargar
+                <LuDownload size={20}/>
             </button>
         </div>
     );

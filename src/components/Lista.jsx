@@ -33,6 +33,7 @@ const Lista = () => {
                 <table className="table-auto min-w-full">
                     <thead className='bg-white text-[#0A0A0B] border-b border-gray-200'>
                         <tr>
+                            <th className="px-4 py-2 text-start"></th>
                             <th className="px-4 py-2 text-start">Nombre</th>
                             <th className="px-4 py-2 text-start">Transporte</th>
                             <th className="px-4 py-2 text-start">Viaje Ida</th>
@@ -41,10 +42,11 @@ const Lista = () => {
                         </tr>
                     </thead>
                     <tbody className='divide-y divide-gray-100'>
-                        {trabajadores.map((trabajador) => (
+                        {trabajadores.map((trabajador, index) => (
                             <tr
                                 key={trabajador.id_trabajador}
                                 className={`${trabajador.estado ? 'bg-white' : 'bg-gray-100'} hover:bg-gray-100 cursor-pointer transition-colors`}>
+                                <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
                                 <td className="px-4 py-2 text-[#0A0A0B]">
                                     {trabajador.nombre_completo}
                                 </td>
