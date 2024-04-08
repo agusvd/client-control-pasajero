@@ -159,14 +159,14 @@ const ListaIda = () => {
 
 
     return (
-        <div className='min-h-screen w-full font-primary bg-gray-50 '>
+        <div className='min-h-screen w-full font-primary bg-gray-50'>
             <Toaster />
             <NavMobile />
             <div>
                 <div className='p-2'>
                     <h3 className='text-[#0A0A0B] font-semibold text-2xl text-start pl-2'>Asistencia IDA - Planta</h3>
                 </div>
-                <ul className='flex flex-col gap-2 p-2'>
+                <ul className='flex flex-col gap-4 p-2'>
                     {trabajadoresConMismoTransporte.map(trabajador => (
                         <li key={trabajador.id_trabajador} className="flex flex-col gap-4 items-center justify-between shadow pl-4 pr-4 py-2 bg-white rounded-xl">
                             <div className="flex items-center gap-2 justify-between w-full">
@@ -177,7 +177,7 @@ const ListaIda = () => {
                                         name={trabajador.id_trabajador}
                                         checked={checkedItems[trabajador.id_trabajador] || false}
                                         onChange={handleCheckboxChange}
-                                        className="checkbox checkbox-lg bg-white checked:border-green-500 [--chkbg:theme(colors.green.500)] [--chkfg:white]"
+                                        className="checkbox checkbox-lg bg-red-300 checked:border-green-500 [--chkbg:theme(colors.green.500)] [--chkfg:white]"
                                     />
                                 </div>
                                 <div className='flex items-center justify-between w-full'>

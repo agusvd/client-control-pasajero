@@ -23,9 +23,9 @@ const AsistenciaTiempoReal = () => {
     };
 
     return (
-        <div className='p-4'>
+        <div className='p-4 overflow-hidden'>
             <h2 className='text-xl font-bold mb-4 text-[#0A0A0B] pl-2'>Asistencia del día de hoy ({formatDate(new Date())})</h2>
-            <div className='border rounded-xl border-gray-200 shadow-md w-full p-2'>
+            <div className='border rounded-xl border-gray-200 shadow-md w-full p-2 overflow-x-auto'>
                 <table className='table-auto w-full rounded-xl'>
                     <thead className='text-[#0A0A0B] bg-white border-b border-gray-200'>
                         <tr>
@@ -40,7 +40,7 @@ const AsistenciaTiempoReal = () => {
                     </thead>
                     <tbody className='divide-y'>
                         {asistenciaHoy.trasladosIda.map((traslado, index) => (
-                            <tr key={index}>
+                            <tr key={index} className='hover:bg-gray-100'>
                                 <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
                                 <td className='px-4 py-2 text-[#0A0A0B]'>{traslado.nombre_trabajador}</td>
                                 <td className='px-4 py-2 text-[#0A0A0B]'>{traslado.asistencia}</td>

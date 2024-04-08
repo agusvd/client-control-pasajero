@@ -58,15 +58,11 @@ const Reportes = () => {
     return (
         <div className='min-h-screen w-full font-primary bg-white'>
             <NavBar />
-            <div className='flex w-full justify-between'>
+            <div className='w-full flex justify-center items-center sm:justify-start'>
                 <Menu>
                     <MenuItem text='Asistencias' number={1} changePage={changePage} />
                     <MenuItem text='Traslados' number={2} changePage={changePage} />
                 </Menu>
-                <div className='p-4'>
-                    <DateRangePicker />
-                </div>
-
             </div>
             {currentPage === 1 && (<ReportesAsistencia />)}
             {currentPage === 2 && (<ReporteTraslados traslados={traslados} nombreTrabajador={nombreTrabajador} />)}

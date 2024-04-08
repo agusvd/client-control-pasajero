@@ -157,16 +157,16 @@ const ListaVuelta = () => {
     }
 
     return (
-        <div className='min-h-screen w-full font-primary bg-white'>
+        <div className='min-h-screen w-full font-primary bg-gray-50'>
             <Toaster />
             <NavMobile />
             <div>
                 <div className='p-2'>
                     <h3 className='text-[#0A0A0B] font-semibold text-2xl text-start pl-2'>Asistencia VUELTA - Planta</h3>
                 </div>
-                <ul className='flex flex-col gap-2 p-2'>
+                <ul className='flex flex-col gap-4 p-2'>
                     {trabajadoresConMismoTransporte.map(trabajador => (
-                        <li key={trabajador.id_trabajador} className="flex flex-col gap-4 items-center justify-between pl-4 pr-4 py-2 bg-white rounded-xl">
+                        <li key={trabajador.id_trabajador} className="flex flex-col gap-4 items-center justify-between shadow pl-4 pr-4 py-2 bg-white rounded-xl">
                             <div className="flex items-center gap-2 justify-between w-full">
                                 <div className='flex items-center'>
                                     <input

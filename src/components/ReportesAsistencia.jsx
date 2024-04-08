@@ -43,7 +43,7 @@ const ReportesAsistencia = () => {
                 <Search>
                     <SearchItem text='Buscar por nombre' onChange={(e) => setNombre(e.target.value)} />
                 </Search>
-                <div className='flex gap-2'>
+                <div className='flex gap-2 '>
                     <select className='rounded-md text-white px-2 outline-none bg-[#0A0A0B] hover:bg-zinc-800 transition-colors' onChange={handleTipoDestinoChange}> {/* Manejar el cambio de tipo de destino */}
                         <option value=''>Seleccionar destino</option>
                         <option value='ida'>Destino Planta</option>

@@ -29,9 +29,9 @@ const Lista = () => {
 
     return (
         <div className='h-screen w-full p-4'>
-            <div className='border rounded-xl overflow-hidden shadow border-gray-200'>
+            <div className='border rounded-xl overflow-hidden shadow border-gray-200 overflow-x-auto'>
                 <table className="table-auto min-w-full">
-                    <thead className='bg-white text-[#0A0A0B] border-b border-gray-200'>
+                    <thead className='bg-white text-[#0A0A0B] border-b border-gray-200 whitespace-nowrap'>
                         <tr>
                             <th className="px-4 py-2 text-start"></th>
                             <th className="px-4 py-2 text-start">Nombre</th>

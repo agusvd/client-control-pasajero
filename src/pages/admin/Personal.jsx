@@ -19,37 +19,38 @@ const Personal = () => {
 
     return (
         <div className='min-h-screen w-full font-primary bg-white'>
-            <NavBar/>
-            <div className='pr-4 items-center flex justify-between'>
+            <NavBar />
+            <div className='pr-4 items-center flex justify-center sm:justify-start'>
                 <Menu>
                     <MenuItem text='Vista previa' number={1} changePage={changePage} />
                     <MenuItem text='Trabajadores' number={2} changePage={changePage} />
                     <MenuItem text='Conductores' number={3} changePage={changePage} />
                     <MenuItem text='Vehiculos' number={4} changePage={changePage} />
-                </Menu>
-                <div className="dropdown dropdown-bottom dropdown-end hover:bg-none">
-                    <div role="button" tabindex="0" className="p-2 rounded-lg transition-colors text-white flex items-center gap-2 bg-black hover:bg-zinc-800 shadow">
-                        <LuPlusSquare size={25} />
+                    <div className="dropdown dropdown-bottom dropdown-end hover:bg-none">
+                        <div role="button" tabindex="0" className="p-2 rounded-lg transition-colors text-white flex items-center gap-2 bg-black hover:bg-zinc-800 shadow">
+                            <LuPlusSquare size={25} />
+                        </div>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-white gap-2 border border-gray-200">
+                            <Link to='/panel/personal/nuevo-trabajador'
+                                className="text-[#0A0A0B] p-1 hover:bg-[#F4F4F5] rounded-md transition-colors">Nuevo Trabajador
+                            </Link>
+                            <Link to='/panel/personal/nuevo-conductor'
+                                className="text-[#0A0A0B] p-1 hover:bg-[#F4F4F5] rounded-md transition-colors">Nuevo Conductor
+                            </Link>
+                            <Link to='/panel/personal/nuevo-vehiculo'
+                                className="text-[#0A0A0B] p-1 hover:bg-[#F4F4F5] rounded-md transition-colors">
+                                Nuevo Vehiculo
+                            </Link>
+                        </ul>
                     </div>
-                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-white gap-2 border border-gray-200">
-                        <Link to='/panel/personal/nuevo-trabajador'
-                            className="text-[#0A0A0B] p-1 hover:bg-[#F4F4F5] rounded-md transition-colors">Nuevo Trabajador
-                        </Link>
-                        <Link to='/panel/personal/nuevo-conductor'
-                            className="text-[#0A0A0B] p-1 hover:bg-[#F4F4F5] rounded-md transition-colors">Nuevo Conductor
-                        </Link>
-                        <Link to='/panel/personal/nuevo-vehiculo'
-                            className="text-[#0A0A0B] p-1 hover:bg-[#F4F4F5] rounded-md transition-colors">
-                            Nuevo Vehiculo
-                        </Link>
-                    </ul>
-                </div>
+                </Menu>
+
             </div>
 
             {currentPage === 1 && <Lista />}
             {currentPage === 2 && <Trabajadores />}
             {currentPage === 3 && <Conductores />}
-            {currentPage === 4 && <Vehiculos  />}
+            {currentPage === 4 && <Vehiculos />}
         </div>
     )
 }

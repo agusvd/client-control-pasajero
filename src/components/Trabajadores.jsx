@@ -82,9 +82,9 @@ const Trabajadores = () => {
     return (
         <div className='min-h-screen w-full p-4'>
             <Toaster />
-            <div className='border rounded-lg shadow overflow-auto border-gray-200]'>
-                <table className="table-auto min-w-full">
-                    <thead className='text-[#0A0A0B] bg-white border-b border-gray-200'>
+            <div className='border rounded-lg shadow overflow-auto border-gray-200 overflow-x-auto'>
+                <table className="table-auto min-w-full h-[300px]">
+                    <thead className='text-[#0A0A0B] bg-white border-b border-gray-200 whitespace-nowrap'>
                         <tr>
                             <th className="px-4 py-2 text-start"></th>
                             <th className="px-4 py-2 text-start">Nombre</th>
@@ -94,7 +94,7 @@ const Trabajadores = () => {
                             <th className="px-4 py-2 text-start">Opciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className=''>
                         {trabajadores.length === 0 && (
                             <tr>
                                 <td colSpan='5' className='text-center text-[#0A0A0B]'>No hay trabajadores</td>
