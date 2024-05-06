@@ -27,7 +27,7 @@ const EditarConductor = () => {
                 setIdVehiculo(res.data[0].id_vehiculo)
             })
             .catch(error => {
-                console.log(error)
+                toast.error(error)
             })
 
     }, [])

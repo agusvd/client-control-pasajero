@@ -25,8 +25,6 @@ const Lista = () => {
             });
     }, [])
 
-    console.log(trabajadores)
-
     return (
         <div className='h-screen w-full p-4'>
             <table className='table-auto w-full rounded-md bg-white pb-2 shadow-md'>

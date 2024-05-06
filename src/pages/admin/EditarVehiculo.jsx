@@ -23,7 +23,7 @@ const EditarVehiculo = () => {
                 setCapacidad(res.data[0].capacidad);
             })
             .catch(error => {
-                console.log(error);
+                toast.error(error);
             });
     }, []);
 

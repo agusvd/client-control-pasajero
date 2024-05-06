@@ -1,53 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react'
 import Menu, { MenuItem } from '../../components/Menu';
 import NavBar from '../../components/Nav/NavBar';
 import ReporteTraslados from '../../components/Reportes/ReporteTraslados';
 import ReportesAsistencia from '../../components/Reportes/ReportesAsistencia';
 
 const Reportes = () => {
-    const [traslados, setTraslados] = useState([]);
-    const [trabajadores, setTrabajadores] = useState([]);
-
-
-    // Obtener los traslados
-    useEffect(() => {
-        const fetchTraslados = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/api/dashboard/traslados');
-                setTraslados(response.data);
-            } catch (error) {
-                console.error('Error al obtener los traslados:', error);
-            }
-        };
-
-        fetchTraslados();
-    }, []);
-    console.log(traslados);
-
-    // Obtener los trabajadores
-    useEffect(() => {
-        const fetchTrabajadores = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/api/dashboard/trabajadores');
-                setTrabajadores(response.data);
-            } catch (error) {
-                console.error('Error al obtener los trabajadores:', error);
-            }
-        };
-
-        fetchTrabajadores();
-    }, []);
-
-    // Obtener los nombres de los trabajadores asociados a cada traslado
-    const nombreTrabajador = (id_trabajador) => {
-        const trabajador = trabajadores.find(t => t.id_trabajador === id_trabajador);
-        return trabajador ? trabajador.nombre_completo : 'Trabajador no encontrado';
-    };
-
-    
-
-
     const [currentPage, setCurrentPage] = useState(1);
 
     const changePage = (pageNumber) => {
@@ -64,7 +21,7 @@ const Reportes = () => {
                 </Menu>
             </div>
             {currentPage === 1 && (<ReportesAsistencia />)}
-            {currentPage === 2 && (<ReporteTraslados traslados={traslados} nombreTrabajador={nombreTrabajador} />)}
+            {currentPage === 2 && (<ReporteTraslados />)}
         </div>
     );
 };

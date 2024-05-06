@@ -24,20 +24,18 @@ const Checklist = () => {
             if (token) {
                 const decoded = jwtDecode(token);
                 const id = decoded.id_conductor;
-                console.log(id)
                 if (id) {
                     const resChofer = await axios.get(`http://localhost:3000/api/user/users/conductor/${id}`);
                     setChofer(resChofer.data[0]);
-                    console.log(resChofer.data[0])
                     if (resChofer.data[0].id_vehiculo) {
                         const resAuto = await axios.get(`http://localhost:3000/api/dashboard/vehiculos/${resChofer.data[0].id_vehiculo}`);
                         setAuto(resAuto.data[0]);
                     }
                 } else {
-                    console.log('No se encontró el id del conductor');
+                    toast.error('No se encontró el id del conductor');
                 }
             } else {
-                console.log('No hay token');
+                toast.error('No hay token');
             }
         }
         obtenerDatos();

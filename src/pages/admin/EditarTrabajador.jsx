@@ -32,7 +32,7 @@ const EditarTrabajador = () => {
                 setViajaVuelta(res.data[0].viaja_vuelta)
             })
             .catch(error => {
-                console.log(error)
+                toast.error(error)
             })
     }, [])
 
@@ -42,7 +42,7 @@ const EditarTrabajador = () => {
                 setVehiculos(res.data)
             })
             .catch(error => {
-                console.log(error)
+                toast.error(error)
             })
     }, [])
 

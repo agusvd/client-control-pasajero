@@ -17,7 +17,7 @@ const ReporteTraslados = () => {
                 const response = await axios.get('http://localhost:3000/api/dashboard/traslados');
                 setTraslados(response.data);
             } catch (error) {
-                console.error('Error al obtener los traslados:', error);
+                toast.error('Error al obtener los traslados:', error);
             }
         };
 
@@ -31,7 +31,7 @@ const ReporteTraslados = () => {
                 const response = await axios.get('http://localhost:3000/api/dashboard/trabajadores');
                 setTrabajadores(response.data);
             } catch (error) {
-                console.error('Error al obtener los trabajadores:', error);
+                toast.error('Error al obtener los trabajadores:', error);
             }
         };
 
@@ -75,10 +75,8 @@ const ReporteTraslados = () => {
         if (window.confirm('¿Estás seguro de eliminar este traslado?')) {
             try {
                 const response = await axios.delete(`http://localhost:3000/api/dashboard/traslados/${id_traslado}`);
-                console.log(response.data);
                 toast.success('Traslado eliminado exitosamente');
             } catch (error) {
-                console.error('Error al eliminar el traslado:', error);
                 toast.error('Error al eliminar el traslado');
             }
         }

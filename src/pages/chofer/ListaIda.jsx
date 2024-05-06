@@ -104,14 +104,12 @@ const ListaIda = () => {
             asistencias,
             comentarios
         }
-        console.log('Datos a enviar:', values);
         try {
             const res = await axios.post('http://localhost:3000/api/dashboard/traslados', values);
             toast.success(res.data.message || 'Asistencia enviada correctamente');
             setTimeout(() => {
                 navigate('/inicio');
             }, 1500);
-            console.log('Datos enviados correctamente');
         } catch (error) {
             console.error('Error al enviar los datos:', error);
             if (error.response) {
