@@ -11,7 +11,7 @@ const ReportesAsistencia = () => {
 
     const buscarAsistencia = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/dashboard/asistencia?fecha=${fecha}&nombre=${nombre}&tipoDestino=${tipoDestino}`); // Enviar el tipo de destino en la solicitud
+            const response = await axios.get(`http://localhost:3000/api/dashboard/asistencia?fecha=${fecha}&nombre=${nombre}&tipoDestino=${tipoDestino}`);
             setAsistencias(response.data);
         } catch (error) {
             console.error('Error al buscar asistencia:', error);
@@ -20,7 +20,7 @@ const ReportesAsistencia = () => {
 
     useEffect(() => {
         buscarAsistencia();
-    }, [fecha, nombre, tipoDestino]); // Agregar tipoDestino a las dependencias de useEffect
+    }, [fecha, nombre, tipoDestino]);
 
     const handleTipoDestinoChange = (e) => {
         const selectedTipoDestino = e.target.value;
@@ -56,28 +56,30 @@ const ReportesAsistencia = () => {
                 </DatePicker>
             </div>
             {/* fin barra larga */}
-            <table className='table-auto w-full rounded-md bg-white pb-2 shadow-md'>
-                <thead className='border-b'>
-                    <tr>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'></th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Fecha</th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Nombre</th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Asistencia</th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Comentario</th>
-                    </tr>
-                </thead>
-                <tbody className=''>
-                    {asistencias.map((asistencia, index) => (
-                        <tr key={index} className='hover:bg-gray-100'>
-                            <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
-                            <td className='px-4 py-2 text-[#0A0A0B]'>{formatDate(asistencia.fecha)}</td>
-                            <td className='px-4 py-2 text-[#0A0A0B]'>{asistencia.nombre_completo}</td>
-                            <td className='px-4 py-2 text-[#0A0A0B]'>{asistencia.asistencia}</td>
-                            <td className='px-4 py-2 text-[#0A0A0B]'>{asistencia.comentario}</td>
+            <div className='max-h-[500px] overflow-y-auto mb-2 rounded-md'>
+                <table className=' w-full rounded-md bg-white pb-2 shadow-md'>
+                    <thead className='border-b sticky top-0 bg-white'>
+                        <tr>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>#</th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Fecha</th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Nombre</th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Asistencia</th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Comentario</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className=''>
+                        {asistencias.map((asistencia, index) => (
+                            <tr key={index} className='hover:bg-gray-100'>
+                                <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
+                                <td className='px-4 py-2 text-[#0A0A0B]'>{formatDate(asistencia.fecha)}</td>
+                                <td className='px-4 py-2 text-[#0A0A0B]'>{asistencia.nombre_completo}</td>
+                                <td className='px-4 py-2 text-[#0A0A0B]'>{asistencia.asistencia}</td>
+                                <td className='px-4 py-2 text-[#0A0A0B]'>{asistencia.comentario}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

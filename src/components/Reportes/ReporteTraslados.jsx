@@ -97,51 +97,53 @@ const ReporteTraslados = () => {
                     <DatePickerItem />
                 </DatePicker>
             </div>
-            <table className='table-auto w-full rounded-md bg-white pb-2 shadow'>
-                <thead className='border-b'>
-                    <tr>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'></th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Fecha</th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Conductor</th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Vehiculo</th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Destino</th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Costo por persona</th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Informacion</th>
-                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody className=''>
-                    {traslados.filter(filterByVehicleName).map((traslado, index) => (
-                        <tr key={index} className='hover:bg-gray-100 transition-colors'>
-                            <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
-                            <td className='px-4 py-2'>{formatDate(traslado.fecha)}</td>
-                            <td className='px-4 py-2'>{traslado.nombre_conductor}</td>
-                            <td className='px-4 py-2'>{traslado.vehiculo}</td>
-                            <td className='px-4 py-2'>{traslado.tipo_viaje}</td>
-                            <td className='px-4 py-2'>{valorEntero(traslado.valor_por_persona)}</td>
-                            <td className='px-4 py-2'>
-                                <button
-                                    onClick={() => openModal(traslado.asistencias)}
-                                    className="bg-black text-white transition-colors p-2 rounded-md"
-                                >
-                                    Asistencia
-                                </button>
-                            </td>
-                            <td className='px-4 py-2 flex gap-2'>
-                                <button className="bg-black text-white transition-colors p-2 rounded-md">
-                                    Editar
-                                </button>
-                                <button
-                                    onClick={() => confirmDelete(traslado.id_traslado)}
-                                    className="bg-black text-white transition-colors p-2 rounded-md"
-                                >
-                                    Eliminar
-                                </button>
-                            </td>
+            <div className='max-h-[500px] overflow-y-auto mb-2 rounded-md'>
+                <table className=' w-full rounded-md bg-white pb-2 shadow-md'>
+                    <thead className='border-b sticky top-0 bg-white'>
+                        <tr>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'></th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Fecha</th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Conductor</th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Vehiculo</th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Destino</th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Costo por persona</th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Informacion</th>
+                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Acciones</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className=''>
+                        {traslados.filter(filterByVehicleName).map((traslado, index) => (
+                            <tr key={index} className='hover:bg-gray-100 transition-colors'>
+                                <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
+                                <td className='px-4 py-2'>{formatDate(traslado.fecha)}</td>
+                                <td className='px-4 py-2'>{traslado.nombre_conductor}</td>
+                                <td className='px-4 py-2'>{traslado.vehiculo}</td>
+                                <td className='px-4 py-2'>{traslado.tipo_viaje}</td>
+                                <td className='px-4 py-2'>{valorEntero(traslado.valor_por_persona)}</td>
+                                <td className='px-4 py-2'>
+                                    <button
+                                        onClick={() => openModal(traslado.asistencias)}
+                                        className="bg-black text-white transition-colors p-2 rounded-md"
+                                    >
+                                        Asistencia
+                                    </button>
+                                </td>
+                                <td className='px-4 py-2 flex gap-2'>
+                                    <button className="bg-black text-white transition-colors p-2 rounded-md">
+                                        Editar
+                                    </button>
+                                    <button
+                                        onClick={() => confirmDelete(traslado.id_traslado)}
+                                        className="bg-black text-white transition-colors p-2 rounded-md"
+                                    >
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
             {modalVisible && (
                 <div className="absolute top-0 left-0 right-0 ">
                     <div className="bg-white/30 h-screen flex justify-center items-center">
