@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Logo from '../assets/logo_color.svg'
+import Logo from '../../assets/logo_color.svg'
 import { HiBars3 } from "react-icons/hi2";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';

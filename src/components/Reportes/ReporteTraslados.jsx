@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { LuSearch } from "react-icons/lu";
 import { toast, Toaster } from 'react-hot-toast';
 import axios from 'axios';
-import Search, { SearchItem } from './Search';
-import DatePicker, { DatePickerItem } from './DatePicker';
+import Search, { SearchItem } from '../Search';
+import DatePicker, { DatePickerItem } from '../Date/DatePicker';
 
 const ReporteTraslados = () => {
     const [traslados, setTraslados] = useState([]);
@@ -91,7 +91,7 @@ const ReporteTraslados = () => {
     return (
         <div className='pr-4 pl-4 flex flex-col gap-4 font-primary'>
             <Toaster />
-            <div className='p-1 flex justify-between gap-4'>
+            <div className='mt-3 flex flex-col justify-center items-center sm:flex-row sm:justify-between'>
                 <Search >
                     <SearchItem text='Buscar por vehiculo' onChange={handleSearchChange} />
                 </Search>
@@ -99,53 +99,51 @@ const ReporteTraslados = () => {
                     <DatePickerItem />
                 </DatePicker>
             </div>
-            <div className='border rounded-xl border-gray-200 shadow-md w-full p-2'>
-                <table className='table-auto w-full rounded-xl'>
-                    <thead className='text-[#0A0A0B] bg-white border-b border-gray-200'>
-                        <tr>
-                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'></th>
-                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Fecha</th>
-                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Conductor</th>
-                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Vehiculo</th>
-                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Destino</th>
-                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Costo por persona</th>
-                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Informacion</th>
-                            <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Acciones</th>
+            <table className='table-auto w-full rounded-md bg-white pb-2 shadow'>
+                <thead className='border-b'>
+                    <tr>
+                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'></th>
+                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Fecha</th>
+                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Conductor</th>
+                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Vehiculo</th>
+                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Destino</th>
+                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Costo por persona</th>
+                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Informacion</th>
+                        <th className='font-semibold text-[#0A0A0B] px-4 py-2 text-start'>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody className=''>
+                    {traslados.filter(filterByVehicleName).map((traslado, index) => (
+                        <tr key={index} className='hover:bg-gray-100 transition-colors'>
+                            <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
+                            <td className='px-4 py-2'>{formatDate(traslado.fecha)}</td>
+                            <td className='px-4 py-2'>{traslado.nombre_conductor}</td>
+                            <td className='px-4 py-2'>{traslado.vehiculo}</td>
+                            <td className='px-4 py-2'>{traslado.tipo_viaje}</td>
+                            <td className='px-4 py-2'>{valorEntero(traslado.valor_por_persona)}</td>
+                            <td className='px-4 py-2'>
+                                <button
+                                    onClick={() => openModal(traslado.asistencias)}
+                                    className="bg-black text-white transition-colors p-2 rounded-md"
+                                >
+                                    Asistencia
+                                </button>
+                            </td>
+                            <td className='px-4 py-2 flex gap-2'>
+                                <button className="bg-black text-white transition-colors p-2 rounded-md">
+                                    Editar
+                                </button>
+                                <button
+                                    onClick={() => confirmDelete(traslado.id_traslado)}
+                                    className="bg-black text-white transition-colors p-2 rounded-md"
+                                >
+                                    Eliminar
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody className='divide-y'>
-                        {traslados.filter(filterByVehicleName).map((traslado, index) => (
-                            <tr key={index} className='text-[#0A0A0B] hover:bg-gray-50 transition-colors'>
-                                <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
-                                <td className='px-4 py-2'>{formatDate(traslado.fecha)}</td>
-                                <td className='px-4 py-2'>{traslado.nombre_conductor}</td>
-                                <td className='px-4 py-2'>{traslado.vehiculo}</td>
-                                <td className='px-4 py-2'>{traslado.tipo_viaje}</td>
-                                <td className='px-4 py-2'>{valorEntero(traslado.valor_por_persona)}</td>
-                                <td className='px-4 py-2'>
-                                    <button
-                                        onClick={() => openModal(traslado.asistencias)}
-                                        className="bg-black text-white transition-colors p-2 rounded-xl"
-                                    >
-                                        Asistencia
-                                    </button>
-                                </td>
-                                <td className='px-4 py-2 flex gap-2'>
-                                    <button className="bg-black text-white transition-colors p-2 rounded-xl">
-                                        Editar
-                                    </button>
-                                    <button
-                                        onClick={() => confirmDelete(traslado.id_traslado)}
-                                        className="bg-black text-white transition-colors p-2 rounded-xl"
-                                    >
-                                        Eliminar
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                    ))}
+                </tbody>
+            </table>
             {modalVisible && (
                 <div className="absolute top-0 left-0 right-0 ">
                     <div className="bg-white/30 h-screen flex justify-center items-center">

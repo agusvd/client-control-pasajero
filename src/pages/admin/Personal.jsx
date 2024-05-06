@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Menu, { MenuItem } from '../../components/Menu';
-import Trabajadores from '../../components/Trabajadores';
-import Conductores from '../../components/Conductores';
+import Trabajadores from '../../components/Tablas/Trabajadores';
+import Conductores from '../../components/Tablas/Conductores';
 import { LuPlusSquare } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
-import Vehiculos from '../../components/Vehiculos';
-import NavBar from '../../components/NavBar';
-import Lista from '../../components/Lista';
+import Vehiculos from '../../components/Tablas/Vehiculos';
+import NavBar from '../../components/Nav/NavBar';
+import Lista from '../../components/Tablas/Lista';
 
 
 const Personal = () => {
@@ -18,17 +18,20 @@ const Personal = () => {
     };
 
     return (
-        <div className='min-h-screen w-full font-primary bg-white'>
+        <div className='min-h-screen w-full font-primary bg-gray-100'>
             <NavBar />
-            <div className='pr-4 items-center flex justify-center sm:justify-start'>
+            <div className='flex items-center justify-center sm:justify-between pt-3'>
                 <Menu>
                     <MenuItem text='Vista previa' number={1} changePage={changePage} />
                     <MenuItem text='Trabajadores' number={2} changePage={changePage} />
                     <MenuItem text='Conductores' number={3} changePage={changePage} />
                     <MenuItem text='Vehiculos' number={4} changePage={changePage} />
-                    <div className="dropdown dropdown-bottom dropdown-end hover:bg-none">
-                        <div role="button" tabindex="0" className="p-2 rounded-lg transition-colors text-white flex items-center gap-2 bg-black hover:bg-zinc-800 shadow">
-                            <LuPlusSquare size={25} />
+                </Menu>
+                <div className='pr-4'>
+                    <div className="dropdown dropdown-bottom dropdown-end bg-white rounded-xl p-1 shadow border hover:bg-gray-100 duration-300 ease-in-out">
+                        <div role="button" tabindex="0" className="p-1 rounded-lg transition-colors  flex items-center gap-2 text-zinc-700 text-sm font-semibold">
+                            <LuPlusSquare size={20} />
+                            Nuevo
                         </div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-white gap-2 border border-gray-200">
                             <Link to='/panel/personal/nuevo-trabajador'
@@ -43,8 +46,7 @@ const Personal = () => {
                             </Link>
                         </ul>
                     </div>
-                </Menu>
-
+                </div>
             </div>
 
             {currentPage === 1 && <Lista />}

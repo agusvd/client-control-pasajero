@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Menu, { MenuItem } from '../../components/Menu';
-import NavBar from '../../components/NavBar';
-import DateRangePicker from '../../components/DateRangePicker';
-import ReporteTraslados from '../../components/ReporteTraslados';
-import ReportesAsistencia from '../../components/ReportesAsistencia';
+import NavBar from '../../components/Nav/NavBar';
+import ReporteTraslados from '../../components/Reportes/ReporteTraslados';
+import ReportesAsistencia from '../../components/Reportes/ReportesAsistencia';
 
 const Reportes = () => {
     const [traslados, setTraslados] = useState([]);
@@ -56,9 +55,9 @@ const Reportes = () => {
     };
 
     return (
-        <div className='min-h-screen w-full font-primary bg-white'>
+        <div className='min-h-screen w-full font-primary bg-gray-100'>
             <NavBar />
-            <div className='w-full flex justify-center items-center sm:justify-start'>
+            <div className='w-full flex justify-center items-center sm:justify-start pt-3'>
                 <Menu>
                     <MenuItem text='Asistencias' number={1} changePage={changePage} />
                     <MenuItem text='Traslados' number={2} changePage={changePage} />

@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { LuArrowLeft } from 'react-icons/lu'
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast'
-import NavBar from '../../components/NavBar'
+import NavBar from '../../components/Nav/NavBar'
 
 const EditarConductor = () => {
 

@@ -1,6 +1,7 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../assets/logo_color.svg";
+import Logo from '../../assets/logo_color.svg';
+
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast';
 import { jwtDecode } from "jwt-decode";
@@ -81,10 +82,12 @@ export default function Nav({ children }) {
                             <div className="border-b border-gray-200 p-1">
                                 <h4 className="font-light text-zinc-700 first-letter:uppercase">{nombre_completo}</h4>
                             </div>
-                            <Link className="text-[#0A0A0B] p-1 hover:bg-gray-100 rounded-md transition-colors">Pefil</Link>
-                            <Link
-                                onClick={handleLogout}
-                                className="text-[#0A0A0B] p-1 hover:bg-gray-100 rounded-md transition-colors">Cerrar sesion</Link>
+                            <Link className="text-[#0A0A0B] p-1 hover:bg-gray-100 rounded-md transition-colors">
+                                Pefil
+                            </Link>
+                            <Link onClick={handleLogout} className="text-[#0A0A0B] p-1 hover:bg-gray-100 rounded-md transition-colors">
+                                Cerrar sesion
+                            </Link>
                         </ul>
                     </div>
                 </div>

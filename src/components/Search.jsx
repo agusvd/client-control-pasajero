@@ -9,8 +9,8 @@ export default function Search({ children }) {
 
     return (
         <SearchContext.Provider value={{ search, setSearch }}>
-            <div className="flex gap-1 bg-black p-1 rounded-xl w-1/3 transition-all shadow text-clip items-center">
-                <LuSearch size={25} className='text-white' />
+            <div className="flex gap-1 bg-white p-2 rounded-md w-1/2 transition-all shadow border items-center text-clip pl-2">
+                <LuSearch size={25} className='text-black' />
                 {children}
             </div>
         </SearchContext.Provider>
@@ -18,12 +18,11 @@ export default function Search({ children }) {
 }
 
 export function SearchItem({ text, onChange }) {
-    const { search, setSearch } = useContext(SearchContext);
 
     return (
         <input
             onChange={onChange}
-            className={`p-2 bg-black text-white text-start rounded-lg transition-all ease-in-out duration-300 text-sm font-semibold text-nowrap w-full`}
+            className={`p-2 bg-white text-black placeholder:text-black text-start rounded-lg transition-all ease-in-out duration-300 text-sm text-nowrap w-full outline-none`}
             placeholder={text}
         />
     );

@@ -84,42 +84,40 @@ const Vehiculos = () => {
     return (
         <div className='min-h-screen w-full p-4'>
             <Toaster />
-            <div className='border rounded-lg shadow overflow-auto border-gray-200 overflow-x-auto'>
-                <table className="table-auto min-w-full">
-                    <thead className='text-[#0A0A0B] bg-white border-b border-gray-200'>
+            <table className='table-auto w-full rounded-md bg-white pb-2 shadow-md'>
+                <thead className='border-b'>
+                    <tr>
+                        <th className="px-4 py-2 text-start"></th>
+                        <th className="px-4 py-2 text-start">Nombre</th>
+                        <th className="px-4 py-2 text-start">patente</th>
+                        <th className="px-4 py-2 text-start">Capacidad</th>
+                        <th className="px-4 py-2 text-start">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {vehiculos.length === 0 && (
                         <tr>
-                            <th className="px-4 py-2 text-start"></th>
-                            <th className="px-4 py-2 text-start">Nombre</th>
-                            <th className="px-4 py-2 text-start">patente</th>
-                            <th className="px-4 py-2 text-start">Capacidad</th>
-                            <th className="px-4 py-2 text-start">Opciones</th>
+                            <td className='text-center' colSpan={4}>No hay vehiculos</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {vehiculos.length === 0 && (
-                            <tr>
-                                <td className='text-center' colSpan={4}>No hay vehiculos</td>
-                            </tr>
-                        )}
-                        {vehiculos.map((vehiculo, index) => (
-                            <tr
-                                key={vehiculo.id_vehiculo}
-                                className='hover:bg-[#F4F4F5] transition-colors'>
-                                <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
-                                <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.nombre}</td>
-                                <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.patente}</td>
-                                <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.capacidad}</td>
-                                <td className="px-4 py-2 text-[#0A0A0B] gap-2 flex">
-                                    <Link to={`/panel/personal/editar-vehiculo/${vehiculo.id_vehiculo}`} className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</Link>
-                                    <button
-                                        onClick={() => handleDelete(vehiculo)}
-                                        className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Eliminar</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                    )}
+                    {vehiculos.map((vehiculo, index) => (
+                        <tr
+                            key={vehiculo.id_vehiculo}
+                            className='hover:bg-[#F4F4F5] transition-colors'>
+                            <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
+                            <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.nombre}</td>
+                            <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.patente}</td>
+                            <td className="px-4 py-2 text-[#0A0A0B]">{vehiculo.capacidad}</td>
+                            <td className="px-4 py-2 text-[#0A0A0B] gap-2 flex">
+                                <Link to={`/panel/personal/editar-vehiculo/${vehiculo.id_vehiculo}`} className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</Link>
+                                <button
+                                    onClick={() => handleDelete(vehiculo)}
+                                    className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Eliminar</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     )
 }

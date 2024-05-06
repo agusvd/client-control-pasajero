@@ -15,6 +15,7 @@ import Reportes from "./pages/admin/Reportes";
 import EditarVehiculo from "./pages/admin/EditarVehiculo";
 import EditarConductor from "./pages/admin/EditarConductor";
 import EditarTrabajador from "./pages/admin/EditarTrabajador";
+
 function App() {
 
   return (
@@ -58,7 +59,6 @@ function App() {
           <Route path="/panel/reportes" element={<Reportes />} />
         </Route>
         <Route path="*" element={<NotFound />} />
-
       </Routes>
     </BrowserRouter>
   )

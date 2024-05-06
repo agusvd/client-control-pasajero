@@ -6,22 +6,21 @@ import axios from 'axios';
 const Dialogo = ({ id, valor, setValor, actualizarValor }) => {
     return (
         <dialog id={id} className='modal bg-white/30'>
-            <div className='bg-white p-1 rounded-xl border border-gray-200'>
-                <div className='flex justify-end w-full'>
-                    <button onClick={() => document.getElementById(id).close()} className='p-1 hover:bg-gray-100 text-[#0A0A0B] rounded-xl'>
+            <div className='bg-white p-1 rounded-xl border border-gray-200 h-[180px]'>
+                <form className='flex flex-col gap-2 p-2 relative h-full justify-end'>
+                    <button onClick={() => document.getElementById(id).close()}
+                        className='p-1 hover:bg-gray-100 text-[#0A0A0B] rounded-md absolute right-0 top-0'>
                         <LuX size={25} />
                     </button>
-                </div>
-                <form className='flex flex-col gap-4 p-4'>
                     <label className='flex flex-col gap-2'>
-                        <span className='text-[#0A0A0B]'>Valor</span>
+                        <p className='text-[#0A0A0B] text-xl text-left'>Valor</p>
                         <input
                             type='number'
                             name={id}
                             placeholder='15000'
                             value={valor}
                             onChange={(e) => setValor(e.target.value)}
-                            className='rounded-md p-2 bg-white border border-gray-200 text-[#0A0A0B]'
+                            className='rounded-md p-2 bg-white border border-gray-200 text-[#0A0A0B] pt-3'
                         />
                     </label>
                     <button onClick={actualizarValor} className='bg-[#0A0A0B] text-white hover:bg-zinc-800 transition-colors rounded-md p-2'>Guardar</button>
@@ -34,7 +33,7 @@ const Dialogo = ({ id, valor, setValor, actualizarValor }) => {
 // Componente de Botón
 const Boton = ({ id, icono, valor, showModal }) => {
     return (
-        <button onClick={showModal} className='flex flex-col justify-center items-center w-[200px] h-[100px] border rounded-xl gap-2 border-gray-200 tooltip shadow-md' data-tip="Cambiar valor">
+        <button onClick={showModal} className='flex flex-col justify-center items-center w-[200px] h-[100px] rounded-xl gap-2 border bg-white tooltip shadow-md' data-tip="Cambiar valor">
             <div className='flex justify-around w-full'>
                 <h1 className='text-[#0A0A0B] text-md'>{id}</h1>
                 {icono}

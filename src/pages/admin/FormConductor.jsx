@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { LuArrowLeft } from 'react-icons/lu'
 import { toast, Toaster } from 'react-hot-toast'
-import NavBar from '../../components/NavBar'
+import NavBar from '../../components/Nav/NavBar'
 
 const FormConductor = () => {
     const navigate = useNavigate()

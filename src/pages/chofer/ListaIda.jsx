@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import NavMobile from '../../components/NavMobile';
+import NavMobile from '../../components/Nav/NavMobile';
 import { jwtDecode } from 'jwt-decode';
 import { LuMessageSquare, LuInfo } from "react-icons/lu";
 import { toast, Toaster } from 'react-hot-toast'

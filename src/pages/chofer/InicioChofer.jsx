@@ -1,5 +1,5 @@
 import React from 'react'
-import NavMobile from '../../components/NavMobile'
+import NavMobile from '../../components/Nav/NavMobile'
 import Checklist from '../../components/Checklist'
 
 const InicioChofer = () => {

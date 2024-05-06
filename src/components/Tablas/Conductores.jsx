@@ -108,42 +108,40 @@ const Conductores = () => {
     return (
         <div className='min-h-screen w-full p-4'>
             <Toaster />
-            <div className='border rounded-lg shadow overflow-auto border-gray-200 overflow-x-auto'>
-                <table className="table-auto min-w-full">
-                    <thead className='text-[#0A0A0B] bg-white border-b border-gray-200 whitespace-nowrap'>
+            <table className='table-auto w-full rounded-md bg-white pb-2 shadow-md'>
+                <thead className='border-b'>
+                    <tr>
+                        <th className="px-4 py-2 text-start"></th>
+                        <th className="px-4 py-2 text-start">Nombre</th>
+                        <th className="px-4 py-2 text-start">Telefono</th>
+                        <th className="px-4 py-2 text-start">Vehiculo</th>
+                        <th className="px-4 py-2 text-start">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {conductores.length === 0 && (
                         <tr>
-                            <th className="px-4 py-2 text-start"></th>
-                            <th className="px-4 py-2 text-start">Nombre</th>
-                            <th className="px-4 py-2 text-start">Telefono</th>
-                            <th className="px-4 py-2 text-start">Vehiculo</th>
-                            <th className="px-4 py-2 text-start">Opciones</th>
+                            <td colSpan={4} className='text-[#0A0A0B] text-center'>No hay conductores</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {conductores.length === 0 && (
-                            <tr>
-                                <td colSpan={4} className='text-[#0A0A0B] text-center'>No hay conductores</td>
-                            </tr>
-                        )}
-                        {conductores.map((conductor, index) => (
-                            <tr
-                                key={conductor.id_conductor}
-                                className='hover:bg-[#F4F4F5] transition-colors'>
-                                <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
-                                <td className="px-4 py-2 text-[#0A0A0B]">{conductor.nombre_completo}</td>
-                                <td className="px-4 py-2 text-[#0A0A0B]">{conductor.telefono}</td>
-                                <td className="px-4 py-2 text-[#0A0A0B]">{getVehiculoName(conductor.id_vehiculo)}</td>
-                                <td className="px-4 py-2 text-[#0A0A0B] gap-2 flex">
-                                    <Link to={`/panel/personal/editar-conductor/${conductor.id_conductor}`} className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</Link>
-                                    <button
-                                        onClick={() => handleDelete(conductor)}
-                                        className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800'>Eliminar</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                    )}
+                    {conductores.map((conductor, index) => (
+                        <tr
+                            key={conductor.id_conductor}
+                            className='hover:bg-[#F4F4F5] transition-colors'>
+                            <td className='px-4 py-2 text-[#0A0A0B]'>{index + 1}</td>
+                            <td className="px-4 py-2 text-[#0A0A0B]">{conductor.nombre_completo}</td>
+                            <td className="px-4 py-2 text-[#0A0A0B]">{conductor.telefono}</td>
+                            <td className="px-4 py-2 text-[#0A0A0B]">{getVehiculoName(conductor.id_vehiculo)}</td>
+                            <td className="px-4 py-2 text-[#0A0A0B] gap-2 flex">
+                                <Link to={`/panel/personal/editar-conductor/${conductor.id_conductor}`} className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800 transition-colors'>Editar</Link>
+                                <button
+                                    onClick={() => handleDelete(conductor)}
+                                    className='text-white bg-[#0a0a0b] p-2 rounded-lg hover:bg-zinc-800'>Eliminar</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     )
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-Link
 
 export default function BotonIcono({ icon, text, link }) {
     return (
